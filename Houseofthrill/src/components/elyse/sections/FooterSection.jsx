@@ -68,27 +68,27 @@ function FooterSection() {
 
         {/* Column 2: Location */}
         <div className="footer-col col-location">
-          <div className="label-container">
+          <div className="footer-label-container">
             <LineReveal className="footer-label" lines={["(LOCATION)"]} />
           </div>
-          <div className="content-container">
+          <div className="footer-content-container">
             <LineReveal href='https://www.google.com/maps/place/House+Of+Thrill/@23.2144,77.4291727,17z/data=!3m1!4b1!4m6!3m5!1s0x397c436cf54f7441:0xf4fcd58b7017fd33!8m2!3d23.2144!4d77.4317476!16s%2Fg%2F11yty38w_y?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D' as="p" className="location-text" lines={["E4/105, Near Vande Mataram Square, ", "Arera Colony, Bhopal, M.P."]} />
           </div>
         </div>
 
         {/* Column 3: Contact */}
         <div className="footer-col col-contact">
-          <div className="label-container">
+          <div className="footer-label-container">
             <LineReveal className="footer-label" lines={["(CONTACT)"]} />
           </div>
-          <div className="content-container">
+          <div className="footer-content-container">
             <LineReveal as="p" className="contact-highlight" lines={["houseofthrillindia@gmail.com"]} />
             <LineReveal as="p" className="contact-highlight" lines={["+91 7987097199"]} />
             <div className="social flex gap-4 text-[clamp(1.4rem,1vw,1.1rem)]">
-              <a href="https://www.instagram.com/houseofthrill_/" target="_blank" rel="noopener noreferrer" className="social-link">
+              <a href="https://www.instagram.com/houseofthrill_/" target="_blank" rel="noopener noreferrer" className="footer-social-link">
                 <BsInstagram />
               </a>
-              <a href="https://wa.me/917987097199" target="_blank" rel="noopener noreferrer" className="social-link">
+              <a href="https://wa.me/917987097199" target="_blank" rel="noopener noreferrer" className="footer-social-link">
                 <BsWhatsapp />
               </a>
             </div>

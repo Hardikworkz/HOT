@@ -36,14 +36,13 @@
 }
 
 /* Labels */
-.label-container {
+.footer-label-container {
   height: 45px; /* Ensures alignment across columns */
   margin-bottom: 25px; /* Spacing below the line */
 }
 
 .footer-label {
-  font-family: robo;
-  font-size: clamp(14px, 1.2vw, 16px);
+   font-size: clamp(14px, 1.2vw, 16px);
   font-style: italic;
   color: rgba(245, 239, 230, 0.4);
   text-transform: uppercase;
@@ -57,6 +56,7 @@
   text-transform: uppercase;
   margin: 0;
   line-height: 1;
+  margin-top: 45px;
   letter-spacing: -0.02em;
   color: #ffffff;
 }
@@ -97,13 +97,13 @@
   gap: 40px;
 }
 
-.cookie-link, .bottom-right {
+.cookie-link, .bottom-right, .footer-social-link {
   color: inherit;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.cookie-link:hover, .bottom-right:hover {
+.cookie-link:hover, .bottom-right:hover, .footer-social-link:hover {
   color: rgba(245, 239, 230, 0.8);
 }
 
@@ -161,19 +161,19 @@
   }
 
   /* Reset desktop alignment heights for mobile stacking */
-  .label-container {
+  .footer-label-container {
     height: auto;
     margin-bottom: 0px; 
   }
 
   /* Specific internal spacing to match image flow */
-  .col-brand .label-container {
+  .col-brand .footer-label-container {
     margin-bottom: 0; /* Let the mobile line handle the space */
   }
-  .col-location .label-container {
+  .col-location .footer-label-container {
     margin-bottom: 25px;
   }
-  .col-contact .label-container {
+  .col-contact .footer-label-container {
     margin-bottom: 25px;
   }
 
