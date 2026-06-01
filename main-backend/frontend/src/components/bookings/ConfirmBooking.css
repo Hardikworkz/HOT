@@ -1,0 +1,71 @@
+/* Confirm Booking page scoped styles */
+.confirm-page { display:block; }
+
+.confirm-page .confirm-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(320px, 1fr);
+  gap: 26px;
+  align-items: start;
+}
+
+.confirm-page .confirm-panel,
+.confirm-page .summary-card {
+  background: #120f17;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+}
+
+.confirm-page .page-header { display:flex; gap:16px; align-items:flex-start; margin-bottom:18px; }
+.confirm-page .round-back { width:44px; height:44px; border-radius:12px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); color:#f7f8ff; }
+.confirm-page .eyebrow { margin:0 0 6px; text-transform:uppercase; color:#8f92b7; font-size:0.72rem; letter-spacing:0.18em; }
+.confirm-page .page-header h1 { margin:0; font-size:1.8rem; line-height:1.05; }
+.confirm-page .page-copy { margin:8px 0 0; color:#abb1ce; max-width:58ch; line-height:1.6; }
+
+.confirm-page .field-grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px; margin:18px 0; }
+.confirm-page .field-card { background:#14111e; border:1px solid rgba(255,255,255,0.06); border-radius:14px; padding:12px; display:block; }
+.confirm-page .field-label { display:block; color:#afb4cf; font-size:0.82rem; margin-bottom:8px; }
+.confirm-page .field-input-wrapper { display:flex; align-items:center; gap:8px; background:#120f17; border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:10px 12px; }
+.confirm-page .field-icon { font-size:1rem; color:#8f92b7; }
+.confirm-page .field-input { flex:1; border:none; background:transparent; color:#f5f7ff; font-size:0.98rem; outline:none; }
+
+.confirm-page .slot-dropdown-panel { margin-bottom:14px; }
+.confirm-page .dropdown-trigger { width:100%; background:#14111e; border-radius:14px; padding:12px 14px; border:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; align-items:center; color:#eef2ff; cursor:pointer; }
+.confirm-page .dropdown-menu { margin-top:8px; border-radius:12px; background:#110e1d; border:1px solid rgba(255,255,255,0.06); overflow:hidden; }
+.confirm-page .dropdown-item { width:100%; text-align:left; padding:10px 12px; color:#eef2ff; background:transparent; border:none; cursor:pointer; }
+.confirm-page .dropdown-item:hover, .confirm-page .dropdown-item.selected { background: rgba(111,140,255,0.08); }
+.confirm-page .dropdown-empty { padding:12px; color:#8f92b7; }
+
+.confirm-page .payment-toggle { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:12px; }
+.confirm-page .payment-option { padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.08); background:#14111e; color:#e6e8ff; cursor:pointer; }
+.confirm-page .payment-option.active { background:rgba(123,142,255,0.08); border-color:#7b8eff; }
+
+.confirm-page .checkbox-field { display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:center; margin:12px 0 18px; color:#c2c7e2; font-size:0.94rem; }
+.confirm-page .checkbox-field input { width:18px; height:18px; accent-color:#7b8eff; }
+
+.confirm-page .confirm-btn { width:100%; border:none; border-radius:14px; padding:14px; background:linear-gradient(135deg,#7b8eff,#6ef4c2); color:#0b0f18; font-weight:700; cursor:pointer; }
+.confirm-page .confirm-btn:disabled { opacity:0.4; cursor:not-allowed; }
+
+.confirm-page .summary-panel { display:flex; flex-direction:column; gap:16px; padding:0; }
+.confirm-page .summary-panel > * { padding:18px 20px; }
+.confirm-page .summary-header { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.confirm-page .summary-tag { color:#8f92b7; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.18em; margin:0 0 6px; }
+.confirm-page .summary-header h3 { margin:0; font-size:1.2rem; line-height:1.15; }
+.confirm-page .summary-thumb { min-width:56px; min-height:56px; border-radius:12px; display:grid; place-items:center; color:#f8fbff; font-weight:700; background: linear-gradient(180deg, rgba(123,142,255,0.12), rgba(40,46,103,0.45)); }
+
+.confirm-page .spec-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.confirm-page .spec-label { color:#9ba0c4; font-size:0.78rem; margin-bottom:6px; display:block; }
+.confirm-page .divider { height:1px; background:rgba(255,255,255,0.06); margin:6px 0; }
+.confirm-page .divider.thick { height:2px; opacity:0.14; }
+.confirm-page .summary-list, .confirm-page .price-block { display:grid; gap:10px; }
+.confirm-page .summary-line, .confirm-page .price-line, .confirm-page .price-total { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.confirm-page .summary-line span, .confirm-page .price-line span, .confirm-page .price-total span { color:#b0b4d0; }
+.confirm-page .summary-line strong, .confirm-page .price-line strong, .confirm-page .price-total strong { color:#f7f9ff; font-weight:700; }
+.confirm-page .price-total { font-size:1.02rem; }
+
+@media (max-width:900px) {
+  .confirm-page .confirm-layout { grid-template-columns: 1fr; }
+  .confirm-page .field-grid, .confirm-page .payment-toggle, .confirm-page .spec-grid { grid-template-columns:1fr; }
+  .confirm-page .page-header { flex-direction:column; }
+}
