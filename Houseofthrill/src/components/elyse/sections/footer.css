@@ -155,6 +155,9 @@
   .desktop-only-line {
     display: none !important;
   }
+  .brand-title {
+    margin-top: 0;
+  }
 
   .mobile-only-line {
     display: block !important;

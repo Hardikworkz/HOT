@@ -93,7 +93,7 @@ function HeaderSection({ headerRef, menuOpen, onMenuToggle, onVisit }) {
         <div className="header-overlay absolute inset-0 bg-[linear-gradient(180deg,rgba(17,16,15,0.68),rgba(17,16,15,0))] opacity-0 transition-opacity duration-300" />
 
         {/* Desktop & Base Header Row */}
-        <div className="mx-auto flex max-w-[104rem] items-center justify-between py-4 relative z-[60]">
+        <div className="mx-auto flex max-w-[104rem] items-center justify-between py-[15px] relative z-[60]">
            <div className="flex items-center gap-6">
               <a
                 aria-label="THRILL logo"
