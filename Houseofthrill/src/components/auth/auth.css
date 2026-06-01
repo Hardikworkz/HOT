@@ -1,0 +1,429 @@
+/* --- AUTH CONTAINER & LAYOUT --- */
+
+.auth-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  color: #f5efe6;
+}
+
+/* --- BACKGROUND ELEMENTS --- */
+
+.auth-bg-blur {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.auth-bg-blur-1 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #b89f74, #70685c);
+  top: -100px;
+  right: -100px;
+  animation: float 6s ease-in-out infinite;
+}
+
+.auth-bg-blur-2 {
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, #70685c, #3a3835);
+  bottom: -150px;
+  left: -150px;
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(30px);
+  }
+}
+
+/* --- MAIN CONTENT --- */
+
+.auth-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 420px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* --- HEADER --- */
+
+.auth-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-title {
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: #f5efe6;
+  letter-spacing: -0.02em;
+}
+
+.auth-subtitle {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: rgba(245, 239, 230, 0.7);
+  font-weight: 400;
+}
+
+/* --- ERROR MESSAGE --- */
+
+.auth-error {
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: #fca5a5;
+  font-size: 0.9rem;
+  text-align: center;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- ROLE SELECTOR --- */
+
+.auth-role-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.role-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #b89f74;
+  text-align: center;
+}
+
+.role-options {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.role-option {
+  flex: 1;
+  padding: 14px 16px;
+  border: 2px solid rgba(245, 239, 230, 0.2);
+  border-radius: 10px;
+  background: rgba(245, 239, 230, 0.05);
+  backdrop-filter: blur(10px);
+  color: rgba(245, 239, 230, 0.7);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+}
+
+.role-option:hover:not(:disabled) {
+  border-color: rgba(245, 239, 230, 0.3);
+  background: rgba(245, 239, 230, 0.08);
+}
+
+.role-option.active {
+  border-color: #b89f74;
+  background: rgba(184, 159, 116, 0.15);
+  color: #b89f74;
+  box-shadow: 0 0 16px rgba(184, 159, 116, 0.2);
+}
+
+.role-option:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- AUTH OPTIONS (BUTTONS) --- */
+
+.auth-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border: 1px solid rgba(245, 239, 230, 0.15);
+  border-radius: 12px;
+  background: rgba(245, 239, 230, 0.05);
+  backdrop-filter: blur(10px);
+  color: #f5efe6;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  font-family: var(--font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+}
+
+.auth-btn:hover:not(:disabled) {
+  background: rgba(245, 239, 230, 0.12);
+  border-color: rgba(245, 239, 230, 0.3);
+  transform: translateY(-2px);
+}
+
+.auth-btn:active:not(:disabled) {
+  transform: translateY(0px);
+}
+
+.auth-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-btn-google svg {
+  filter: brightness(1) drop-shadow(0 0 2px rgba(0, 0, 0, 0.1));
+}
+
+.auth-btn-apple svg {
+  color: #f5efe6;
+}
+
+.auth-btn-secondary {
+  background: rgba(245, 239, 230, 0.02);
+  border-color: rgba(245, 239, 230, 0.12);
+  color: rgba(245, 239, 230, 0.82);
+}
+
+/* --- DIVIDER --- */
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.auth-divider span {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 239, 230, 0) 0%,
+    rgba(245, 239, 230, 0.2) 50%,
+    rgba(245, 239, 230, 0) 100%
+  );
+}
+
+.auth-divider p {
+  font-size: 0.85rem;
+  color: rgba(245, 239, 230, 0.6);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* --- FOOTER / LINK --- */
+
+.auth-footer {
+  text-align: center;
+}
+
+.auth-link {
+  background: none;
+  border: none;
+  color: #b89f74;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0;
+  font-family: var(--font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+  position: relative;
+}
+
+.auth-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #b89f74;
+  transition: width 0.3s ease;
+}
+
+.auth-link:hover {
+  color: #d4b896;
+}
+
+.auth-link:hover::after {
+  width: 100%;
+}
+
+.auth-restricted-content {
+  align-items: center;
+  text-align: center;
+}
+
+.auth-restricted-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border: 1px solid rgba(252, 165, 165, 0.35);
+  border-radius: 999px;
+  background: rgba(220, 38, 38, 0.12);
+  color: #fca5a5;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.auth-success-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border: 1px solid rgba(134, 239, 172, 0.35);
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.12);
+  color: #86efac;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.auth-restricted-card {
+  width: 100%;
+  padding: 18px 20px;
+  border: 1px solid rgba(245, 239, 230, 0.12);
+  border-radius: 16px;
+  background: rgba(245, 239, 230, 0.06);
+  color: rgba(245, 239, 230, 0.82);
+  line-height: 1.6;
+}
+
+/* --- LOADING STATE --- */
+
+.auth-loading {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 17, 16, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.auth-loading-inline {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  min-height: 100vh;
+  background: transparent;
+}
+
+.auth-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(245, 239, 230, 0.2);
+  border-top-color: #b89f74;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- RESPONSIVE DESIGN --- */
+
+@media (max-width: 640px) {
+  .auth-content {
+    max-width: 100%;
+    padding: 24px 20px;
+    gap: 24px;
+  }
+
+  .auth-title {
+    font-size: 2rem;
+  }
+
+  .auth-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .auth-btn {
+    padding: 14px 16px;
+    font-size: 0.9rem;
+    gap: 10px;
+  }
+
+  .auth-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .auth-divider {
+    gap: 12px;
+  }
+
+  .auth-divider p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-bg-blur-1 {
+    width: 300px;
+    height: 300px;
+  }
+
+  .auth-bg-blur-2 {
+    width: 350px;
+    height: 350px;
+  }
+
+  .auth-content {
+    padding: 20px 16px;
+    gap: 20px;
+  }
+
+  .auth-title {
+    font-size: 1.75rem;
+  }
+
+  .auth-subtitle {
+    font-size: 0.9rem;
+  }
+}

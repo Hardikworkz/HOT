@@ -1,0 +1,445 @@
+@font-face {
+  font-family: main;
+  src: url(../../../src/assets/main3.woff2);
+}
+
+.heading-amen {
+  position: absolute;
+  left: 100px;
+  top: 80px;
+  font-family: main;
+  font-size: clamp(16px, 2vw, 24px);
+  color: #a6a29c;
+  z-index: 10;
+}
+.amenities {
+  position: relative;
+  overflow: clip;
+  background: #121715;
+  color: #f5efe6;
+}
+
+.amenities .page-padding {
+  width: 100%;
+  padding-right: clamp(0.95rem, 3.2vw, 3rem);
+  padding-left: clamp(0.95rem, 3.2vw, 3rem);
+}
+
+.amenities .container {
+  width: 100%;
+  max-width: 1406px;
+  margin: 0 auto;
+}
+
+.amenities .anim-track {
+  position: relative;
+  height: var(--amenities-track-height, 120vh);
+}
+
+.amenities-wrap {
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-columns: minmax(20rem, 44.75rem) minmax(0, 1fr);
+  column-gap: clamp(2rem, 7vw, 8rem);
+  align-items: center;
+  min-height: 100vh;
+  padding-block: clamp(3.5rem, 7vh, 5rem);
+}
+
+.amenities-copy-column,
+.amenities-texts-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.1rem minmax(0, 1fr);
+  column-gap: clamp(1.8rem, 2.4vw, 2.4rem);
+  align-items: center;
+  order: 1;
+  margin-left: 5rem;
+  max-width: 24rem;
+  min-height: clamp(18rem, 42vh, 23rem);
+}
+
+.amenities-progress {
+  position: relative;
+  width: 0.1rem;
+  height: min(45vh, 24rem);
+  overflow: hidden;
+  background: rgb(245 239 230 / 20%);
+}
+
+.amenities-progress-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 33.333%;
+  background: rgb(245 239 230 / 68%);
+}
+
+.amenities-copy-stack,
+.amenities-slide-copy {
+  position: relative;
+  min-height: clamp(18rem, 42vh, 23rem);
+}
+
+.amenities-slide,
+.amenities-slide-box {
+  position: absolute;
+  top: 50%;
+  left: 0;
+ 
+  transform: translateY(-50%);
+}
+
+.amenities-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.amenities-slide.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.amenities-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 4.9vw, 5.125rem);
+  line-height: 0.86;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.amenities-slide-text {
+  width: min(100%, 22rem);
+  margin-top: 1.6rem;
+}
+
+.amenities .line-reveal-inner {
+  transform: translateY(0);
+}
+
+.amenities-triggers {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  pointer-events: none;
+}
+
+.amenities-trigger {
+  min-height: 0;
+}
+
+.amenities-paragraph {
+ 
+  margin: 0;
+  color: rgb(245 239 230 / 92%);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(0.98rem, 1.04vw, 1.5rem);
+  line-height: 1.18;
+}
+
+.amenities-images-container {
+  position: relative;
+  min-height: 43rem;
+  order: 2;
+}
+
+.amenities-images-big,
+.amenities-images-small {
+  position: absolute;
+  overflow: hidden;
+  background: #1b1816;
+}
+
+.amenities-images-big {
+  top: 0;
+  right: 5rem;
+  width: clamp(29rem, 37vw, 38.1875rem);
+  height: clamp(34rem, 47vw, 45.75rem);
+}
+
+.amenities-images-small {
+  left: clamp(-0.5rem, 1vw, 1rem);
+  top: clamp(8.25rem, 13vw, 10rem);
+  z-index: 2;
+  width: clamp(17.5rem, 24vw, 18.75rem);
+  height: clamp(23rem, 32vw, 22.6875rem);
+  box-shadow: 0 2rem 3.4rem rgb(0 0 0 / 20%);
+}
+
+.amenities-slide-imgs,
+.amenities-slide-img-inner {
+  position: absolute;
+  inset: 0;
+}
+
+.amenities-slide-imgs {
+  -webkit-mask-image: var(--mask-gradient);
+  mask-image: var(--mask-gradient);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.amenities-slide-imgs.is-first {
+  position: relative;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+.img-full-cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 500px) {
+  .amenities-wrap {
+    grid-template-columns: 1fr;
+    row-gap: 2.75rem;
+    align-content: start;
+    padding-top: 5.25rem;
+  }
+
+  .amenities-copy-column,
+  .amenities-texts-container {
+    order: 2;
+    margin-left: 0;
+    max-width: min(100%, 28rem);
+    min-height: 19rem;
+  }
+
+  .amenities-copy-stack,
+  .amenities-slide-copy {
+    min-height: 19rem;
+  }
+
+  .amenities-slide,
+  .amenities-slide-box {
+    width: 100%;
+  }
+
+  .amenities-images-container {
+    order: 1;
+    min-height: clamp(30rem, 76vw, 38rem);
+    width: min(100%, 33rem);
+    margin-inline: auto;
+  }
+
+  .amenities-images-big {
+    top: 0;
+    left: 50%;
+    right: auto;
+    width: min(72vw, 24rem);
+    height: clamp(24rem, 78vw, 30rem);
+    transform: translateX(-50%);
+  }
+
+  .amenities-images-small {
+    top: clamp(9rem, 22vw, 11rem);
+    left: 50%;
+    right: auto;
+    width: min(42vw, 14rem);
+    height: clamp(15rem, 44vw, 18rem);
+    transform: translateX(-50%);
+  }
+
+  .heading-amen {
+    left: clamp(1rem, 3.2vw, 1.5rem);
+    top: 1.35rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 499px) {
+  .amenities .anim-track {
+    height: calc(var(--amenities-track-height, 390vh) - 30vh);
+  }
+
+  .amenities-wrap {
+    padding-top: 3.5rem;
+    padding-bottom: 1.5rem;
+    row-gap: 1.05rem;
+  }
+
+  .amenities-copy-column,
+  .amenities-texts-container {
+    display: block;
+    width: min(100%, 17.8rem);
+    max-width: none;
+    min-height: 12.75rem;
+    margin-inline: auto;
+  }
+
+  .amenities-progress {
+    width: 100%;
+    height: 0.1rem;
+    margin-bottom: 0.95rem;
+  }
+
+  .amenities-progress-line {
+    width: 33.333%;
+    height: 100%;
+  }
+
+  .amenities-slide,
+  .amenities-slide-box,
+  .amenities-copy-stack,
+  .amenities-slide-copy {
+    min-height: 12.75rem;
+  }
+
+  .amenities-slide,
+  .amenities-slide-box {
+    top: 0;
+    width: 100%;
+    transform: none;
+  }
+
+  .amenities-title {
+    max-width: 11.4rem;
+    font-size: clamp(2.3rem, 9.8vw, 3.2rem);
+    line-height: 0.92;
+  }
+
+  .amenities-slide-text {
+    width: min(100%, 15rem);
+    margin-top: 0.85rem;
+  }
+
+  .amenities-paragraph {
+    max-width: 15rem;
+    font-size: 0.88rem;
+    line-height: 1.12;
+  }
+
+  .amenities-images-container {
+     
+     margin-inline: auto;
+  }
+
+  .amenities-images-big {
+    top: -2rem;
+    left: 50%;
+    right: auto;
+    width: 90%;
+   
+    transform: translateX(-50%);
+  }
+
+  .amenities-images-small {
+    top: 7rem;
+    left: 50%;
+    right: auto;
+    width: min(50vw, 11rem);
+    height: clamp(10.6rem, 56vw, 13rem);
+    transform: translateX(-50%);
+    box-shadow: 0 1.1rem 2.2rem rgb(0 0 0 / 18%);
+  }
+}
+
+@media (max-width: 499px) {
+  .amenities .page-padding {
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+  }
+
+  .amenities-copy-column,
+  .amenities-texts-container {
+    width: min(100%, 17.2rem);
+    min-height: 12rem;
+  }
+
+  .amenities-slide,
+  .amenities-slide-box,
+  .amenities-copy-stack,
+  .amenities-slide-copy {
+    min-height: 12rem;
+  }
+
+  .amenities-title {
+    max-width: 10.9rem;
+    font-size: clamp(2.15rem, 9.5vw, 3rem);
+  }
+
+  .amenities-slide-text {
+    width: min(100%, 14.2rem);
+  }
+
+  .amenities-paragraph {
+    max-width: 14.2rem;
+    font-size: 0.84rem;
+  }
+
+  .amenities-images-container {
+    min-height: 23rem;
+    margin-top: 2rem;
+  }
+
+
+  .amenities-images-small {
+    top: 10.8rem;
+    width: min(49vw, 10.6rem);
+    height: clamp(10rem, 54vw, 12.3rem);
+  }
+}
+
+
+/* --- Book Your Experience Pill Button --- */
+.amenities-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 340px; /* Adjust scale based on your container design layout */
+  height: 54px;
+
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 100px; /* Perfect pill/capsule shape */
+  
+  font-family: sans-serif; /* Inherits your clean sans-serif/robo font */
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.amenities-action-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive adjustment for clean mobile centering or layout matching */
+@media (max-width: 768px) {
+  .amenities-action-btn {
+    max-width: 100%; /* Spans evenly across smaller viewport columns */
+    margin-top: 25px;
+    height: 48px;
+    font-size: 12px;
+  }
+}
+
+/* --- Static button placed outside animated slides --- */
+.amenities-action-btn--static {
+  grid-column: 2; /* Sits in the second column of the text-column grid */
+  align-self: start;
+  position: relative;
+  z-index: 5;
+}
+
+@media (max-width: 499px) {
+  .amenities-action-btn--static {
+    grid-column: 1;
+  }
+}

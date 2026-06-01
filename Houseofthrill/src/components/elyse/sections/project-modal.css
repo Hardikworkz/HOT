@@ -1,0 +1,118 @@
+.modal-shell {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal-shell.is-open,
+.modal-shell.is-closing {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-content-panel {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.modal-content-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-content-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+}
+
+.modal-bg-image {
+  --mask-gradient: linear-gradient(0deg, black 0%, black 100%);
+  mask-image: var(--mask-gradient);
+  -webkit-mask-image: var(--mask-gradient);
+}
+
+.modal-thumb-slider .splide__slide {
+  cursor: pointer;
+  border: 2px solid transparent !important;
+  transition: border-color 0.3s ease;
+}
+
+.modal-thumb-slider .splide__slide.is-active {
+  border: 2px solid white !important;
+}
+
+.modal-thumb-slider .splide__arrow {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.modal-thumb-slider .splide__arrow svg {
+  fill: white;
+}
+
+.modal-thumb-slider .splide__arrow:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: white;
+}
+
+/* Removed the absolute layouts that were breaking the details elements */
+@media (min-width: 480px) {
+  .modal-shell.is-open .modal-header-line {
+    animation: lineCss 0.5s ease both 1.25s;
+  }
+
+  .modal-shell.is-open .modal-slider-panel {
+    animation: slideFromRightV2 1.2s ease-in-out both;
+  }
+
+  .modal-shell.is-open .modal-layout-bg {
+    animation: slideFromRightV2 1s ease-out both;
+  }
+
+  .modal-shell.is-open :is(.modal-info-panel, .modal-thumb-slider) {
+    animation: fadeInCss 0.8s ease 1s both;
+  }
+
+  .modal-shell.is-closing .modal-slider-panel {
+    animation: slideToRightV2 0.8s ease-in-out 0.5s both;
+  }
+
+  .modal-shell.is-closing .modal-layout-bg {
+    animation: slideToRightV2 1s ease-out 0.8s both;
+  }
+
+  .modal-shell.is-closing :is(.modal-info-panel, .modal-thumb-slider) {
+    animation: fadeOutCss 0.5s ease 0s both;
+  }
+}
+
+@media (max-width: 767px) {
+  .modal-shell.is-open .modal-content-panel {
+    animation: slideFromTop 0.8s ease both;
+  }
+
+  .modal-shell.is-open .modal-header-line {
+    animation: lineCss 0.5s ease both 1s;
+  }
+
+  .modal-shell.is-open :is(.modal-thumb-slider, .modal-slide-info) {
+    animation: fadeInCss 0.5s ease 1s both;
+  }
+
+  .modal-shell.is-closing .modal-content-panel {
+    animation: slideToTop 0.8s ease both 0.5s;
+  }
+
+  .modal-shell.is-closing :is(.modal-thumb-slider, .modal-slide-info) {
+    animation: fadeOutCss 0.5s ease 0.5s both;
+  }
+
+  .modal-thumb-slider .splide__slide {
+    border: 0 !important;
+  }
+}

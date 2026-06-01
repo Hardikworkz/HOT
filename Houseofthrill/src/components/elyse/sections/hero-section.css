@@ -1,0 +1,288 @@
+@font-face {
+  font-family: main;
+  src: url(../../../src/assets/main3.woff2);
+}
+
+@font-face {
+  font-family: robo2;
+  src: url(../../../src/assets/main.woff2);
+}
+
+/* ─────────────────────────────────────────────
+   SECTION SHELL
+───────────────────────────────────────────── */
+.hero-section {
+  position: relative;
+  min-height: 110vh;
+  overflow: clip;
+  color: #f7f1e8;
+}
+ 
+
+.hero-house {
+  display: block;
+  will-change: transform, opacity;
+  font-family: main;
+}
+
+.hero{
+  font-size: 20px;
+  position: relative;
+  left: 8px;
+  top: 20px;
+  
+  font-weight: 500;
+}
+
+@media (max-width: 1100px) {
+  .hero{
+    position: relative;
+    left: 5px;
+    top: 15px;
+   
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 750px) {
+  .hero{
+     
+    position: relative;
+    left: 5px;
+    top: 4px;
+    
+    font-weight: 500;
+  }
+}
+
+.nav-line {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2); /* Clean premium white line */
+  z-index: 60;
+  
+  /* Lock the anchor point directly to the center for a balanced outward expansion */
+  transform-origin: center center;
+  
+  /* Pre-set the layout translation without hardcoding properties GSAP needs to animate */
+  transform: translate(-50%, 0%) translate(-0.106px, 0px) scaleX(0);
+  opacity: 0;
+  
+  pointer-events: none;
+}
+
+.hero-container {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;          
+  padding-left:   clamp(1.25rem, 5vw, 3.5rem);
+  padding-right:  clamp(1.25rem, 5vw, 3.5rem);
+  padding-top:    clamp(19rem, 10vh, 8.5rem);
+  padding-bottom: clamp(2rem, 5vh, 4rem); /* Shifted down from 10rem */
+}
+
+.hero-layout-wrapper {
+  width: 100%;
+}
+
+.hero-main-grid {
+  display: flex;
+  flex-direction: column;       /* single column on mobile (matches image 1) */
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Desktop: side-by-side */
+@media (min-width: 768px) {
+  .hero-main-grid {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: clamp(2rem, 5vw, 8rem);
+    width: 100%;
+  }
+}
+
+ 
+.hero-title-main {
+  display: flex;
+  flex-wrap: nowrap;
+  font-family: robo2;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.8;
+  will-change: transform, opacity;
+
+   font-size: clamp(6.5rem, 23vw, 22rem);
+
+  position: relative;
+  bottom: 0;
+  margin-bottom: 0.25em; /* Increased gap from kicker */
+}
+
+/* Desktop: push title down to overlap content area like reference */
+@media (min-width: 768px) {
+  .hero-title-main {
+    font-size: clamp(10rem, 20vw, 32rem); /* Even larger for desktop impact */
+    flex-shrink: 0;
+    bottom: -0.05em; /* Nudge down to ground it */
+    margin-bottom: 0;
+    align-self: flex-end;
+    letter-spacing: -0.05em;  
+  }
+}
+
+/* char-mask — negative kerning so letters overlap (Elyse style) */
+.hero-char-mask {
+  display: inline-block;
+  overflow: hidden;
+}
+
+/* mobile: tighter overlap */
+@media (max-width: 767px) {
+  .hero-char-mask {
+    margin-right: -0.06em;
+  }
+}
+
+/* desktop: Elyse-style deep overlap */
+@media (min-width: 768px) {
+  .hero-char-mask {
+    margin-right: -0.05em;
+  }
+}
+
+.hero-char {
+  position: relative;
+  display: inline-block;
+}
+ 
+.hero-content-aside {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 2vh, 1.5rem);
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .hero-content-aside {
+    width: clamp(18rem, 28vw, 24rem);
+    flex-shrink: 0;
+    
+    gap: 3rem;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   TEXT GROUP  (kicker + subtitle stacked)
+───────────────────────────────────────────── */
+.hero-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.6rem, 1.5vh, 0.25rem);
+}
+
+ 
+.hero-kicker {
+  font-family: 'main-font', var(--font-display); /* Used main3 font */
+  font-style: italic;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.05;
+  width: 100%;
+ 
+  font-size: clamp(2.2rem, 10vw, 10vw);
+  color: #f7f1e8;
+  margin-bottom: 1.5rem; 
+}
+
+@media (min-width: 768px) {
+  .hero-kicker {
+    font-size: clamp(1.5rem, 2.2vw, 8rem);
+    line-height: 1.1;
+    margin-bottom: 0;
+    max-width: 14ch;
+  }
+}
+
+/* words flow naturally — no special span tricks needed */
+.hero-word {
+  display: inline;
+}
+
+/* ─────────────────────────────────────────────
+   SUBTITLE paragraph
+───────────────────────────────────────────── */
+.hero-subtitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.2;
+  color: rgba(245, 239, 230, 0.95);
+
+  font-size: 20px; /* Explicitly 16px */
+  max-width: 38ch;
+  margin-bottom: 4rem; /* Gap to scroll */
+}
+
+@media (min-width: 768px) {
+  .hero-subtitle {
+    font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+    max-width: 32ch;
+    margin-bottom: 3rem; /* Space to scroll */
+    line-height: 1.4;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   SCROLL INDICATOR
+───────────────────────────────────────────── */
+.hero-scroll-indicator {
+  font-family: var(--font-body);
+  font-size: clamp(0.75rem, 3vw, 0.9375rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(245, 239, 230, 0.74);
+
+  position: absolute;
+  bottom: clamp(1.5rem, 4vh, 3rem);
+  right: 0; /* Align right on desktop aside? No, let's keep it left relative to aside if needed */
+}
+
+@media (min-width: 768px) {
+  .hero-scroll-indicator {
+    position: relative;
+    bottom: 0;
+    margin-top: auto;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   BACKGROUND VIDEO
+───────────────────────────────────────────── */
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-video-wrapper {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}

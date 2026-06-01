@@ -1,0 +1,137 @@
+/* ─── About Ticker / Marquee ─────────────────────────────────────────── */
+
+/* Keyframes: translate the entire list by -100% of its own width.
+   Because we have TWO identical lists sitting side-by-side, when the first
+   list has scrolled fully off-screen, the second list is in exactly the
+   same position the first started — creating a seamless loop. */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Container: hides overflow so the duplicate list is invisible until it
+   scrolls into view. Full-bleed width, no page padding. */
+.about-ticker {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  margin-top: 6rem;
+  background: var(--color-surface, #121110);
+}
+
+/* Inner track: flex row that holds two identical .about-ticker-list copies.
+   will-change + GPU-friendly transform for buttery-smooth scrolling. */
+.about-ticker__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Each list is an identical row of items. The animation is applied here
+   so both lists move in lockstep. Linear timing = constant speed, no
+   easing, no gaps, no pauses. infinite = loops forever. */
+.about-ticker-list {
+  display: flex;
+  align-items: center;
+  gap: 7rem;
+  padding-right: 7rem; /* gap between end of list and start of duplicate */
+  flex-shrink: 0;
+  animation: marquee-scroll 23.28s linear infinite;
+  animation-play-state: running;
+}
+
+/* Individual ticker item */
+.about-ticker__item {
+  flex-shrink: 0;
+}
+
+/* Image wrapper — the container that clips and sizes each photo */
+.about-ticker__img-wrap {
+  position: relative;
+  width: 404px;
+  height: 445px;
+  overflow: hidden;
+  
+}
+
+/* Smaller variant for alternating rhythm (matches reference is--small) */
+.about-ticker__img-wrap.is--small {
+  width: 323px;
+  height: 356px;
+}
+
+/* Inner image container for potential parallax transforms */
+.about-ticker__img {
+  width: 100%;
+  height: 100%;
+}
+
+/* The actual image fills its container */
+.about-ticker__img .img-cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ─── Hover: pause on hover for accessibility ────────────────────────── */
+@media (hover: hover) {
+  .about-ticker:hover .about-ticker-list {
+    animation-play-state: paused;
+  }
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────── */
+@media (max-width: 1080px) {
+  .about-ticker {
+    margin-top: 4rem;
+  }
+
+  .about-ticker__img-wrap {
+    width: 20rem;
+    height: 13.5rem;
+  }
+
+  .about-ticker__img-wrap.is--small {
+    width: 15rem;
+    height: 11rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .about-ticker {
+    margin-top: 3rem;
+  }
+
+  .about-ticker-list {
+    gap: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .about-ticker__img-wrap {
+    width: 16rem;
+    height: 11rem;
+  }
+
+  .about-ticker__img-wrap.is--small {
+    width: 12rem;
+    height: 9rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .about-ticker__img-wrap {
+    width: 13rem;
+    height: 9rem;
+  }
+
+  .about-ticker__img-wrap.is--small {
+    width: 10rem;
+    height: 7.5rem;
+  }
+}

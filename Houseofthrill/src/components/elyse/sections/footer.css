@@ -1,0 +1,202 @@
+@font-face {
+    font-family: robo;
+    src: url('../../../src/assets/main3.woff2');
+}
+
+@font-face {
+    font-family: robo2;
+    src: url('../../../src/assets/main5.woff2');
+}
+
+.elyse-footer {
+  background-color: var(--color-surface, #121110);
+  color: var(--color-text, #ffffff);
+  box-sizing: border-box;
+  padding: 80px clamp(1rem, 5.5vw, 50px) 40px clamp(1rem, 5.5vw, 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 430px;
+  overflow: hidden;
+}
+
+/* --- Top Section Layout --- */
+.footer-top-section {
+  display: grid;
+  grid-template-columns: 50% 25.7% 30.3%;
+  position: relative;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.label-container {
+  height: 45px; /* Ensures alignment across columns */
+  margin-bottom: 25px; /* Spacing below the line */
+}
+
+.footer-label {
+  font-family: robo, sans-serif;
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-style: italic;
+  color: rgba(245, 239, 230, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Content Styling */
+.content-container {
+  font-family: robo2, sans-serif;
+}
+
+.brand-title {
+  font-family: robo, var(--font-display, serif);
+  font-size: clamp(2.5rem, 4vw, 54px);
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.location-text {
+  font-family: robo, var(--font-display, serif);
+  font-size: clamp(0.95rem, 1vw, 16px);
+  line-height: 1.5;
+  color: rgba(245, 239, 230, 0.92);
+  margin: 0;
+  
+}
+
+.contact-highlight {
+  font-family: robo, var(--font-display, serif);
+  font-size: clamp(1.25rem, 1vw, 22px);
+  font-style: italic;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+/* --- Bottom Section Layout --- */
+.footer-bottom-section {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: robo2, sans-serif;
+  font-size: clamp(0.8rem, 0.9vw, 14px);
+  color: rgba(245, 239, 230, 0.4);
+}
+
+.bottom-right-group {
+  display: flex;
+  gap: 40px;
+}
+
+.cookie-link, .bottom-right {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cookie-link:hover, .bottom-right:hover {
+  color: rgba(245, 239, 230, 0.8);
+}
+
+/* --- Lines & Animations (Cleaned Up) --- */
+.line-container {
+  width: 100%;
+  height: 1px;
+  position: relative;
+  overflow: clip;
+}
+
+.line-bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.desktop-only-line {
+  position: absolute;
+  top: 45px; /* Sits exactly under the labels */
+  left: 0;
+}
+
+.mobile-only-line {
+  display: none;
+  margin: 20px 0;
+}
+
+.bottom-divider {
+  margin-bottom: 25px;
+}
+
+.line-reveal-inner {
+  transform: translateY(105%);
+  will-change: transform;
+}
+
+/* --- Responsive Design (Mobile Exact Match) --- */
+@media (max-width: 768px) {
+  .elyse-footer {
+    padding: 60px 25px 40px 25px;
+  }
+  
+  .footer-top-section {
+    grid-template-columns: 1fr;
+    gap: 50px; /* Big vertical rhythm gaps like the image */
+  }
+
+  .desktop-only-line {
+    display: none !important;
+  }
+
+  .mobile-only-line {
+    display: block !important;
+  }
+
+  /* Reset desktop alignment heights for mobile stacking */
+  .label-container {
+    height: auto;
+    margin-bottom: 0px; 
+  }
+
+  /* Specific internal spacing to match image flow */
+  .col-brand .label-container {
+    margin-bottom: 0; /* Let the mobile line handle the space */
+  }
+  .col-location .label-container {
+    margin-bottom: 25px;
+  }
+  .col-contact .label-container {
+    margin-bottom: 25px;
+  }
+
+  .brand-title {
+    font-size: 2.5rem;
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .bottom-right-group {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
+}

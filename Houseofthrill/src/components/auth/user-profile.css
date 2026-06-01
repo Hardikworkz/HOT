@@ -1,0 +1,251 @@
+/* User Profile Header Styles */
+
+.user-profile-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.user-profile-loading {
+  color: white;
+  font-size: 14px;
+  padding: 8px 16px;
+}
+
+.user-profile-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.user-profile-info:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.user-email {
+  margin: 0;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.user-role {
+  margin: 0;
+  font-size: 11px;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.role-badge.admin {
+  background: #ff6b6b;
+  color: white;
+}
+
+.role-badge.moderator {
+  background: #ffc107;
+  color: #333;
+}
+
+.role-badge.user {
+  background: #28a745;
+  color: white;
+}
+
+/* Dropdown Menu */
+.user-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  min-width: 220px;
+  z-index: 1000;
+  overflow: hidden;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-header {
+  padding: 12px 16px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #eee;
+}
+
+.dropdown-email {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.dropdown-role-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.dropdown-role-badge.admin {
+  background: #ff6b6b;
+  color: white;
+}
+
+.dropdown-role-badge.moderator {
+  background: #ffc107;
+  color: #333;
+}
+
+.dropdown-role-badge.user {
+  background: #28a745;
+  color: white;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: #eee;
+  margin: 8px 0;
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 14px;
+  color: #333;
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background: #f0f0f0;
+}
+
+.dropdown-item .icon {
+  font-size: 16px;
+}
+
+.dropdown-item.admin {
+  color: #ff6b6b;
+}
+
+.dropdown-item.admin:hover {
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.dropdown-item.logout {
+  color: #dc3545;
+  border-top: 1px solid #eee;
+}
+
+.dropdown-item.logout:hover {
+  background: rgba(220, 53, 69, 0.1);
+}
+
+/* Auth Buttons (Not Logged In) */
+.user-profile-auth-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.auth-nav-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+
+.auth-nav-btn.login {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.auth-nav-btn.login:hover {
+  background: white;
+  color: #667eea;
+}
+
+.auth-nav-btn.signup {
+  background: #667eea;
+  color: white;
+}
+
+.auth-nav-btn.signup:hover {
+  background: #764ba2;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .user-profile-info {
+    gap: 8px;
+    padding: 6px 8px;
+  }
+
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .user-email {
+    font-size: 12px;
+  }
+
+  .user-dropdown-menu {
+    min-width: 200px;
+  }
+}

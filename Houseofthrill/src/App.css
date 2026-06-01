@@ -1,0 +1,23 @@
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+body {
+  overscroll-behavior-y: contain;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  background: #11100f;
+  margin: 0;
+  padding: 0;
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

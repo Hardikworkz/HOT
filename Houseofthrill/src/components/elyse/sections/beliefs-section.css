@@ -1,0 +1,414 @@
+/* Main Section Container */
+.elyse-section {
+  --belief-card-width: 287px;
+  --belief-card-height: 350px;
+  --belief-card-scale: 1;
+  --belief-card-clip: path("M0 0 H123 C126 0 128.5 1 131 3.5 C134 6 136.5 9.5 138.5 13.5 C140.5 17.5 142.25 21.5 143.5 25 C144.75 21.5 146.5 17.5 148.5 13.5 C150.5 9.5 153 6 156 3.5 C158.5 1 161 0 164 0 H287 V350 H164 C161 350 158.5 349 156 346.5 C153 344 150.5 340.5 148.5 336.5 C146.5 332.5 144.75 328.5 143.5 325 C142.25 328.5 140.5 332.5 138.5 336.5 C136.5 340.5 134 344 131 346.5 C128.5 349 126 350 123 350 H0 Z");
+  --belief-grid-width: 1268px;
+  --belief-grid-height: 796px;
+  --belief-grid-scale: 1;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #121715;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+  padding: 10rem 2rem;
+}
+
+@font-face {
+  font-family: 'main';
+  src: url('../assets/fonts/main3.woff') format('woff');
+}
+
+.heading {
+  position: absolute;
+  top: 55px;
+  right: -60px;
+  z-index: 10;
+  width: 100%;
+  font-family: main;
+  color: #a4a09a;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+}
+
+/* Luxury Moody Interior Background */
+.elyse-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=80');
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+.elyse-bg-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 26, 26, 0.65);
+}
+
+/* 4 Columns x 2 Rows Grid Architecture */
+.elyse-grid-scale {
+  position: relative;
+  z-index: 2;
+  width: calc(var(--belief-grid-width) * var(--belief-grid-scale));
+  height: calc(var(--belief-grid-height) * var(--belief-grid-scale));
+  margin: auto;
+}
+
+.elyse-grid {
+  display: grid;
+  grid-template-columns: repeat(4, var(--belief-card-width));
+  grid-template-rows: repeat(2, auto);
+  gap: 40px;
+  width: var(--belief-grid-width);
+  margin: 0;
+  align-items: start;
+  transform: scale(var(--belief-grid-scale));
+  transform-origin: top left;
+}
+
+/* Base Grid Cell */
+.grid-cell {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 0;
+}
+
+/* Frosted Glass Card Structure with Embedded Custom Polygon Clip-Path */
+/* Frosted Glass Card Structure with Embedded Custom Polygon Clip-Path */
+.elyse-glass-card {
+  width: var(--belief-card-width);
+  max-width: none;
+  height: var(--belief-card-height);
+  background: rgba(18, 23, 21, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  clip-path: var(--belief-card-clip);
+}
+
+.card-content {
+  text-align: center;
+  color: #ffffff;
+  z-index: 2;
+  width: 100%;
+}
+
+.card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 1.45rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+  margin: 0 0 2rem 0;
+  text-transform: uppercase;
+}
+
+.card-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  font-weight: 300;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* Number Label Placement beneath the cards */
+.card-number {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.2rem;
+  margin-top: 0.75rem;
+  font-weight: 500;
+  padding-left: 2px;
+}
+
+/* Editorial Side Text Box */
+.text-cell {
+  justify-content: flex-start;
+  color: rgba(255, 255, 255, 0.85);
+  padding-top: 1rem;
+}
+
+.card-cell {
+  align-items: flex-start;
+  width: calc(var(--belief-card-width) * var(--belief-card-scale));
+}
+
+.card-scale-shell {
+  width: var(--belief-card-width);
+  transform: scale(var(--belief-card-scale));
+  transform-origin: top left;
+}
+
+.editorial-text-block p {
+  font-size: 16px;
+  line-height: 1.1;
+  color: white;
+  margin: 0 0 1.75rem 0;
+  font-weight: 450;
+}
+
+.editorial-text-block p:last-child {
+  margin-bottom: 0;
+}
+
+/* Structural Empty Cell handling */
+.empty-cell {
+  pointer-events: none;
+}
+
+/* @media (max-width: 1590px) {
+  .elyse-glass-card{
+    width: 284px;
+    height: 350px;
+  }
+}
+@media (max-width: 1515px) {
+  .elyse-glass-card{
+    width: 284px;
+    height: 350px;
+  }
+}@media (max-width: 1505px) {
+  .elyse-glass-card{
+    width: 283px;
+    height: 350px;
+  }
+} */
+
+@media (max-width: 1400px) and (min-width: 461px) {
+  .elyse-section {
+    --belief-grid-scale: 0.92;
+  }
+}
+
+@media (max-width: 1250px) and (min-width: 461px) {
+  .elyse-section {
+    --belief-grid-scale: 0.84;
+  }
+}
+
+@media (max-width: 1100px) and (min-width: 461px) {
+  .elyse-section {
+    --belief-grid-scale: 0.76;
+  }
+}
+
+@media (max-width: 950px) and (min-width: 461px) {
+  .elyse-section {
+    --belief-grid-scale: 0.67;
+  }
+}
+
+@media (max-width: 780px) and (min-width: 461px) {
+  .elyse-section {
+    --belief-grid-scale: 0.58;
+  }
+}
+
+@media (max-width: 620px) and (min-width: 461px) {
+  .elyse-section {
+    --belief-grid-scale: 0.49;
+  }
+
+  .editorial-text-block p {
+    font-size: 0.94rem;
+  }
+}
+/* Counteract grid scaling by increasing font sizes and reducing padding */
+
+@media (max-width: 1100px) and (min-width: 471px) {
+  .elyse-glass-card { padding: 2rem 1.5rem; }
+  .card-title { font-size: 1.6rem; }
+  .card-desc { font-size: 1.05rem; }
+}
+
+@media (max-width: 950px) and (min-width: 471px) {
+  .elyse-glass-card { padding: 1.5rem 1rem; }
+  .card-title { font-size: 1.85rem; margin-bottom: 1.5rem; }
+  .card-desc { font-size: 1.2rem; }
+  .card-number { font-size: 1rem; }
+}
+
+@media (max-width: 780px) and (min-width: 471px) {
+  .elyse-glass-card { padding: 1rem 0.75rem; }
+  .card-title { font-size: 2.15rem; margin-bottom: 1.2rem; }
+  .card-desc { font-size: 1.35rem; }
+  .card-number { font-size: 1.15rem; }
+}
+
+@media (max-width: 620px) and (min-width: 471px) {
+  /* Pushing font size to the absolute maximum before words overflow */
+  .elyse-glass-card { padding: 0.75rem 0.5rem; }
+  .card-title { font-size: 2.3rem; margin-bottom: 1rem; }
+  .card-desc { font-size: 1.5rem; line-height: 1.4; }
+  .card-number { font-size: 1.25rem; }
+}
+
+@media (max-width: 470px) {
+  .elyse-section {
+    --belief-grid-scale: 1;
+    --belief-card-scale: 1;
+    display: block;
+    min-height: auto;
+    padding: 4.75rem 25px 2rem;
+  }
+
+  .heading {
+    top: 1rem;
+    right: auto;
+    left: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .elyse-grid-scale {
+    width: 100%;
+    height: auto;
+  }
+
+  .elyse-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+    width: 100%;
+    transform: none;
+    align-items: stretch;
+  }
+
+  .grid-cell,
+  .card-cell {
+    width: 100%;
+  }
+ 
+
+  .elyse-glass-card {
+    width: 100%;
+    height: 267px;
+    min-height: unset;
+    aspect-ratio: unset;
+    padding: 1.2rem 1rem;
+    
+    /* NEW: Responsive polygon that perfectly mirrors your original curve 
+       but anchors dynamically to the center (50%) of the fluid width */
+    clip-path: polygon(
+      0% 0%,
+      calc(50% - 20.5px) 0%,
+      calc(50% - 12.5px) 3.5px,
+      calc(50% - 5px) 13.5px,
+      50% 25px,
+      calc(50% + 5px) 13.5px,
+      calc(50% + 12.5px) 3.5px,
+      calc(50% + 20.5px) 0%,
+      100% 0%,
+      100% 100%,
+      calc(50% + 20.5px) 100%,
+      calc(50% + 12.5px) calc(100% - 3.5px),
+      calc(50% + 5px) calc(100% - 13.5px),
+      50% calc(100% - 25px),
+      calc(50% - 5px) calc(100% - 13.5px),
+      calc(50% - 12.5px) calc(100% - 3.5px),
+      calc(50% - 20.5px) 100%,
+      0% 100%
+    );
+  }
+
+  
+
+  .card-scale-shell {
+    width: 100%;
+    transform: none;
+  }
+
+  .card-content {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .card-title {
+    font-size: 0.95rem;
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+  }
+
+  .card-desc {
+    font-size: 0.72rem;
+    line-height: 1.2;
+    max-width: 100%;
+  }
+
+  .card-number {
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .text-cell {
+    grid-column: 1 / -1;
+    order: 10;
+    padding-top: 0;
+    width: 100%;
+  }
+
+  .card-cell-1 {
+    order: 1;
+  }
+
+  .card-cell-2 {
+    order: 2;
+  }
+
+  .card-cell-5 {
+    order: 3;
+  }
+
+  .card-cell-7 {
+    order: 4;
+  }
+
+  .card-cell-8 {
+    order: 5;
+    grid-column: 1 / 2;
+  }
+
+  .empty-cell {
+    display: none;
+  }
+
+  .editorial-text-block {
+    padding-top: 0.15rem;
+  }
+
+  .editorial-text-block p {
+    font-size: 0.86rem;
+    line-height: 1.22;
+    margin-bottom: 1rem;
+    max-width: 100%;
+  }
+
+  .editorial-text-block p:last-child {
+    margin-bottom: 0;
+  }
+}
