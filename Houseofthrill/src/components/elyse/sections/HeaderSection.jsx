@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/auth-context";
 import CurvedMenu from "../../ui/curved-menu.jsx";
 import { BurgerIcon } from "../shared/Icons.jsx";
-import { LOGO_URL, LOGO_URL2 } from "../data.js";
+import { LOGO_URL } from "../data.js";
 import "./header-section.css";
 
 function HeaderSection({ headerRef, menuOpen, onMenuToggle, onVisit }) {
@@ -19,6 +19,7 @@ function HeaderSection({ headerRef, menuOpen, onMenuToggle, onVisit }) {
   const { isAuthenticated, isAdmin, loading } = useAuth();
   const isMiniPage = location.pathname === "/mini";
   const showAdminProfile = !loading && isAuthenticated && isAdmin;
+  const showWhatsApp = !loading && !isAdmin;
 
   const handleLinkClick = (linkName) => {
     if (linkName === "Mini H.O.T.") {
@@ -106,18 +107,6 @@ function HeaderSection({ headerRef, menuOpen, onMenuToggle, onVisit }) {
               >
                 <img alt="THRILL logo" className="h-full w-full object-contain" src={LOGO_URL} />
               </a>
-
-              <a
-                aria-label="THRILL logo"
-                className="inline-flex h-[1.625rem] w-[5.875rem] items-center min-w-[90px] cursor-pointer"
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate("/mini");
-                }}
-              >
-                <img alt="THRILL logo" className="h-full w-full object-contain" src={LOGO_URL2} />
-              </a>
           </div>
           {/* Desktop Middle Links */}
           <ul className="hidden md:flex list-none items-center gap-[1.5rem] lg:gap-[2.2rem] p-0 absolute left-1/2 -translate-x-1/2 w-max max-w-[60vw] justify-center">
@@ -143,6 +132,18 @@ function HeaderSection({ headerRef, menuOpen, onMenuToggle, onVisit }) {
               >
                 <User size={18} strokeWidth={2.2} />
               </Link>
+            )}
+
+            {showWhatsApp && (
+              <a
+                href="https://wa.me/917987097199"
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Open WhatsApp chat"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white transition-all duration-200 hover:bg-white/20 hover:border-white/20 focus:outline-none focus:ring-2 focus:ring-white/40"
+              >
+                <WhatsAppIcon />
+              </a>
             )}
 
             {/* Desktop Book a Visit */}

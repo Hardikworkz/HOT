@@ -1923,9 +1923,9 @@ function HomePage() {
                   </a>
                   <a
                     href="https://phenomenonstudio.com/"
-                    target="_blank"
                     rel="noreferrer"
                     className="text-link-light-50"
+                    aria-label="Visit Phenomenon Studio"
                   >
                     <div className="b4 mob-c1">Inspired by Phenomenon</div>
                   </a>

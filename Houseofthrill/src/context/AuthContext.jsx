@@ -4,6 +4,7 @@ import {
   clearStoredAuthSnapshot,
   getStoredAuthSnapshot,
   getUserRole,
+  recoverSessionFromRedirect,
   setStoredAuthSnapshot,
   signOut as signOutUser,
 } from '../lib/auth';
@@ -51,10 +52,16 @@ export function AuthProvider({ children }) {
 
     const bootstrap = async () => {
       try {
-        const { data: { session: nextSession }, error } = await supabase.auth.getSession();
+        const { session: recoveredSession, error: redirectError } = await recoverSessionFromRedirect();
+        if (redirectError) {
+          console.error('Error recovering session from redirect:', redirectError);
+        }
+
+        const { data: { session: existingSession }, error } = await supabase.auth.getSession();
         if (error) throw error;
         if (!active) return;
 
+        const nextSession = recoveredSession || existingSession;
         setSession(nextSession);
         if (nextSession?.user) {
           setUser(nextSession.user);

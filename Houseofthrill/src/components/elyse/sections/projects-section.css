@@ -343,14 +343,17 @@
   color: var(--color-surface);
 }
 
+
 @media (max-width: 991px) {
   .projects {
     min-height: auto !important;
-    --project-main-width: min(68vw, 26rem);
-    --project-main-height: min(52svh, 29rem);
-    --project-side-width: calc(var(--project-main-width) - 1.9rem);
-    --project-side-height: calc(var(--project-main-height) - 2.8rem);
-    --project-text-width: min(66vw, 24rem);
+    /* Tie dimensions to viewport width to maintain the large 3-card focus */
+    --project-main-width: 45vw;
+    --project-main-height: 68vw;
+    /* Make side cards proportionally smaller to retain depth */
+    --project-side-width: 40vw;
+    --project-side-height: 60vw;
+    --project-text-width: var(--project-main-width);
     --project-card-height: var(--project-main-height);
   }
 
@@ -370,75 +373,264 @@
     top: 45%;
   }
 
-  .projects-list {
-    --slide-gap: 8rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .projects {
-    min-height: auto !important;
-    --project-main-width: calc(100vw - 2.5rem);
-    --project-main-height: min(58vh, 27rem);
-    --project-side-width: var(--project-main-width);
-    --project-side-height: var(--project-main-height);
-    --project-text-width: calc(100vw - 2.5rem);
-  }
-
-  .projects-heading {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    gap: 1.5rem !important;
-    margin-bottom: 2rem !important;
-    justify-content: space-between !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  .project-titles {
-    position: relative;
-    top: auto;
-    left: auto;
-    min-height: 5.9rem;
-    margin-top: 2.75rem;
-    transform: translate3d(0, 2.25rem, 0);
-  }
-
-  .mob-h7 {
-    font-size: clamp(2.05rem, 10.3vw, 2.95rem);
-    line-height: 1.02;
-  }
-
   .projects-track {
-    overflow: hidden;
+    width: var(--project-main-width);
+    margin: 0 auto;
+    overflow: visible; /* Crucial: allows side cards to stay visible outside the center track */
   }
 
   .projects-list {
-    --slide-gap: 2.5rem;
+    width: 100%;
+    height: var(--project-card-height);
+    --slide-gap: 3vw; 
   }
 
-  .projects-pagination {
-    top: auto;
-    right: auto;
-  }
-
-  .project-texts {
-    min-height: 12rem;
+.project-texts {
+    width: 100%;
+    /* Locks the container exactly to the width of your center card */
+    max-width: var(--project-main-width); 
+    margin: 2rem auto 0; /* Centers the container block itself */
+    
   }
 
   .project-text {
-    grid-template-columns: 1fr;
-    gap: clamp(1.35rem, 4vh, 2rem);
-    align-items: start;
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between; /* Pushes text left, button right */
+    align-items: center; /* Keeps button vertically aligned with text */
+    gap: 2rem;
+    
+  }
+  
+  .project-text .b1 {
+    text-align: left;
+    margin: 0;
+    flex: 1; /* Allows the paragraph to take up available space safely */
+    
+  }
+}
+/* -----------------------------------
+   Mobile: Below 767px
+----------------------------------- */
+@media (max-width: 767px) {
+  .projects {
+    --project-main-width: 42vw;
+    --project-main-height: 88vw; 
+    --project-side-width: 50vw;
+    --project-side-height: 76vw;
+  }
+ 
+
+  .projects-track {
+    /* Critical for centering: track width must match the center card width */
+    width: var(--project-main-width);
+    margin: 0 auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    overflow: visible !important; /* Allows side cards to be visible outside the track */
+    position: relative;
+  }
+
+  .projects-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--project-card-height);
+    --slide-gap: 6vw; /* Space between cards */
+  }
+
+  /* Ensures text container aligns perfectly with the center card's vertical axis */
+  .project-texts {
+    width: 50%;
+    max-width: 85vw; 
+    margin: 3rem auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .project-text {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    align-items: stretch; /* Button matches text width */
+    text-align: center;
+    gap: 1.5rem;
   }
 
   .project-text .b1 {
-    max-width: 100%;
+    font-size: 1.125rem;
+    line-height: 1.4;
+    margin: 0;
+  }
+}
+/* -----------------------------------
+   Mobile: Below 440px
+----------------------------------- */
+@media (max-width: 480px) {
+.projects {
+    --project-main-width: 50vw;
+    --project-main-height: 105vw;
+    --project-side-width: 50vw;
+    --project-side-height: 90vw;
   }
 
-  .project-titles.is-visible {
-    transform: translate3d(0, 0, 0);
+  /* Force the track to be exactly the width of the main card and centered */
+  .projects-track {
+    width: var(--project-main-width) !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+  }
+
+  /* Ensure the list centers the active slide and provides equal side peeking */
+  .projects-list {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    --slide-gap: 8vw;
+  }
+
+  .project-texts {
+    max-width: 85vw;
+    margin-top: 2rem;
+  }
+
+  .project-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Ensures content centers horizontally */
+    gap: 1.25rem;
+  }
+
+  .project-text .b1 {
+    width: 100%;
+    font-size: 0.5rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  /* FIX: Changed width from 50% to auto or 100% to center correctly */
+  .project-text a, 
+  .project-text button {
+    width: auto;
+    min-width: 140px; /* Ensures button isn't too small */
+    text-align: center;
+    padding: 0.75rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+  }
+}
+/* -----------------------------------
+   Mobile: Below 400px
+----------------------------------- */
+@media (max-width: 420px) {
+  .projects {
+    /* Balance: Tall enough for cinema, narrow enough for 3-card symmetry */
+    --project-main-width: 45vw;
+    --project-main-height: 100vw;
+    --project-side-width: 50vw;
+    --project-side-height: 86vw;
+    --project-card-height: var(--project-main-height);
+  }
+
+  .projects-track {
+    width: var(--project-main-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: center; 
+  }
+ 
+  .projects-list {
+    --slide-gap: 8vw;
+    height: var(--project-card-height);
+  }
+
+  .project-texts {
+    max-width: 85vw;
+    margin: 2.5rem auto 0;
+  }
+
+  .project-text {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Button stretches to match text width */
+    gap: 1.25rem;
+  }
+
+  .project-text .b1 {
+    font-size: 0.6rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .project-text a, 
+  .project-text button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* -----------------------------------
+   Mobile: Below 300px
+----------------------------------- */
+@media (max-width: 350px) {
+.projects {
+    --project-main-width: 50vw;
+    --project-main-height: 105vw;
+    --project-side-width: 55vw;
+    --project-side-height: 90vw;
+  }
+    .projects-track {
+    width: var(--project-main-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: center; 
+  }
+ 
+  .projects-list {
+    --slide-gap: 6vw;
+    height: var(--project-card-height);
+  }
+
+  .project-texts {
+    max-width: 85vw;
+    margin: 2.5rem auto 0;
+  }
+
+  .project-text {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Button stretches to match text width */
+    gap: 1.25rem;
+  }
+
+  .project-text .b1 {
+    font-size: 0.6rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .project-text a, 
+  .project-text button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+ 
+
+  .project-titles {
+    min-height: 4rem;
+    margin-top: 1.5rem;
+  }
+
+.project-texts {
+    max-width: 90vw;
+  }
+
+  .project-text .b1 {
+    font-size: 0.8rem;
   }
 }

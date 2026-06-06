@@ -3,6 +3,9 @@ import supabase from './supabase';
 const PENDING_LOGIN_ROLE_KEY = 'hot_pending_login_role';
 const POST_LOGIN_DESTINATION_KEY = 'hot_post_login_destination';
 const AUTH_SNAPSHOT_KEY = 'hot_auth_snapshot';
+const AUTH_API_BASE = (import.meta.env.VITE_BACKEND_URL || 'http://localhost:5001').replace(/\/$/, '');
+const AUTH_RECOVERY_RETRY_MS = 1500;
+const AUTH_RECOVERY_MAX_ATTEMPTS = 3;
 
 function hasWindow() {
   return typeof window !== 'undefined';
@@ -36,6 +39,41 @@ function removeStorage(key) {
   } catch {
     // Ignore storage failures.
   }
+}
+
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+function getUrlCallbackParams() {
+  if (!hasWindow()) {
+    return {
+      hashParams: new URLSearchParams(),
+      searchParams: new URLSearchParams(),
+    };
+  }
+
+  const hash = window.location.hash.startsWith('#')
+    ? window.location.hash.slice(1)
+    : window.location.hash;
+
+  return {
+    hashParams: new URLSearchParams(hash),
+    searchParams: new URLSearchParams(window.location.search),
+  };
+}
+
+function clearAuthRedirectParams() {
+  if (!hasWindow()) return;
+
+  const nextUrl = new URL(window.location.href);
+  nextUrl.hash = '';
+  nextUrl.searchParams.delete('code');
+  nextUrl.searchParams.delete('state');
+
+  window.history.replaceState({}, document.title, `${nextUrl.pathname}${nextUrl.search}`);
 }
 
 export function setStoredAuthSnapshot(user, role) {
@@ -126,6 +164,59 @@ export async function getCurrentSession() {
   }
 }
 
+export async function recoverSessionFromRedirect() {
+  if (!hasWindow()) {
+    return { session: null, error: null, recovered: false };
+  }
+
+  const { hashParams, searchParams } = getUrlCallbackParams();
+  const hashError = hashParams.get('error_description') || hashParams.get('error');
+  const code = searchParams.get('code');
+  const accessToken = hashParams.get('access_token');
+  const refreshToken = hashParams.get('refresh_token');
+
+  if (hashError) {
+    return { session: null, error: new Error(hashError), recovered: false };
+  }
+
+  if (code) {
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+
+    if (error) {
+      return { session: null, error, recovered: false };
+    }
+
+    clearAuthRedirectParams();
+    return { session: data.session || null, error: null, recovered: true };
+  }
+
+  if (!accessToken || !refreshToken) {
+    return { session: null, error: null, recovered: false };
+  }
+
+  let lastError = null;
+
+  for (let attempt = 0; attempt < AUTH_RECOVERY_MAX_ATTEMPTS; attempt += 1) {
+    const { data, error } = await supabase.auth.setSession({
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    });
+
+    if (!error && data?.session) {
+      clearAuthRedirectParams();
+      return { session: data.session, error: null, recovered: true };
+    }
+
+    lastError = error || new Error('Failed to recover session from redirect');
+
+    if (attempt < AUTH_RECOVERY_MAX_ATTEMPTS - 1) {
+      await delay(AUTH_RECOVERY_RETRY_MS * (attempt + 1));
+    }
+  }
+
+  return { session: null, error: lastError, recovered: false };
+}
+
 export async function getCurrentUser() {
   try {
     const {
@@ -160,17 +251,59 @@ async function getProfileRole(userId) {
   };
 }
 
+async function getBackendRole() {
+  const {
+    data: { session },
+    error: sessionError,
+  } = await supabase.auth.getSession();
+
+  if (sessionError || !session?.access_token) {
+    return { profile: null, role: null, error: sessionError || null };
+  }
+
+  try {
+    const response = await fetch(`${AUTH_API_BASE}/api/auth/role`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${session.access_token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const payload = await response.json().catch(() => ({}));
+      return {
+        profile: null,
+        role: null,
+        error: new Error(payload.error || `Role lookup failed with status ${response.status}`),
+      };
+    }
+
+    const payload = await response.json();
+
+    return {
+      profile: payload,
+      role: payload.role || 'user',
+      error: null,
+    };
+  } catch (error) {
+    return { profile: null, role: null, error };
+  }
+}
+
 export async function getUserRole(userOrId) {
   const userId = typeof userOrId === 'string' ? userOrId : userOrId?.id;
 
- 
-  
   if (!userId) {
     return {
       profile: null,
       role: 'user',
       error: new Error('Missing user id'),
     };
+  }
+
+  const backendRole = await getBackendRole();
+  if (!backendRole.error && backendRole.role) {
+    return backendRole;
   }
 
   return getProfileRole(userId);

@@ -114,6 +114,7 @@ button {
   transform: scaleX(0);
   transform-origin: center center;
   transition: transform 0.3s ease;
+  
 }
 
 @keyframes fadeInCss {
@@ -213,4 +214,19 @@ button {
   .nav-link:hover::before {
     transform: scaleX(1);
   }
+}
+
+.main-heading,
+.subheading,
+.heading,
+.heading-amen,
+.about-heading,
+.hero-heading,
+.hero-title-main,
+.brand-title,
+.projects-heading,
+.project-title,
+.projects-kicker,
+.amenities-title {
+  color: #ff0000 !important;
 }

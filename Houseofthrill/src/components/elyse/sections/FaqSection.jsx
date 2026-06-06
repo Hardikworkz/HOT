@@ -56,7 +56,7 @@ function FaqSection({
               </div>
             </div>
             <h2
-              className="m-0 text-[clamp(2.2rem,7vw,9vw)] uppercase leading-[0.9] [font-family:var(--font-display)]"
+              className="m-0 text-yellow-500 text-[clamp(2.2rem,7vw,9vw)] uppercase leading-[0.9] [font-family:var(--font-display)]"
               data-reveal
             >
               {title}
@@ -69,7 +69,7 @@ function FaqSection({
 
               return (
                 <div
-                  className={`faq-item relative grid gap-[0.85rem] py-[1.2rem] md:min-h-[clamp(7.25rem,9vw,8.8rem)] md:grid-cols-[minmax(3rem,4rem)_minmax(15rem,1fr)_minmax(20rem,35rem)] md:gap-y-[1.2rem] md:gap-x-[clamp(2rem,4vw,4.6rem)] ${isOpen ? "active" : ""}`}
+                  className={`faq-item relative grid gap-[0.85rem] py-[1.2rem] md:min-h-[clamp(7.25rem,8vw,8.8rem)] md:grid-cols-[minmax(3rem,4rem)_minmax(15rem,1fr)_minmax(20rem,35rem)] md:gap-y-[1.2rem] md:gap-x-[clamp(2rem,4vw,4.6rem)] ${isOpen ? "active" : ""}`}
                   data-stagger-item
                   key={item.question} 
                   // Desktop: Interactive hover zones guarded by touchMode check

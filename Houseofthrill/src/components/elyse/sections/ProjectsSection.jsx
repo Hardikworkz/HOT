@@ -193,18 +193,10 @@ function ProjectsSection({ activeProject, onProjectChange, onProjectOpen, projec
                 <div className="caption">
                   <div className="projects-kicker main-heading">(Escape Rooms)</div>
                 </div>
-                <ul aria-label="Select a slide to show" className="splide__pagination projects-pagination" style={{ cursor: 'pointer' }} role="tablist">
-                  {projects.map((project, index) => (
-                    <li key={project.navLabel} role="presentation">
-                      <button aria-controls={`splide01-slide0${index + 1}`} aria-label={`Go to slide ${index + 1}`} aria-selected={activeProject === index ? "true" : "false"} className={`splide__pagination__page projects-pagination-page${activeProject === index ? " is-active" : ""}`} role="tab" tabIndex={activeProject === index ? undefined : -1} type="button" onClick={() => onProjectChange(index)}>
-                        <span>{`(${index + 1})`}</span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+             
               </div>
 
-              <div className={`project-title-stack project-titles ${headingVisible ? "is-visible" : ""}`}>
+              {/* <div className={`project-title-stack project-titles ${headingVisible ? "is-visible" : ""}`}>
                 {projects.map((project, index) => (
                   <div
                     className={`project-title${index === 0 ? " is-first" : ""}${activeProject === index ? " is-active" : ""}`}
@@ -222,7 +214,7 @@ function ProjectsSection({ activeProject, onProjectChange, onProjectOpen, projec
                     </h2>
                   </div>
                 ))}
-              </div>
+              </div> */}
 
               <div
                 className="splide__track projects-track splide__track--loop splide__track--ltr splide__track--nav"

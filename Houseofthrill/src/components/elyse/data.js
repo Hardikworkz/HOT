@@ -213,21 +213,21 @@ export const AMENITIES = [
  
     smallImage: "https://images.unsplash.com/photo-1761873763418-2c9596bc8c65?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGF4ZSUyMHRocm93aW5nfGVufDB8fDB8fHww", 
   },
-  { 
-    titleLines: ["ESCAPE", "ROOMS"], 
-    textLines: [ 
-      "Three immersive themed rooms.", 
-      "One ticking 60-minute clock.", 
-      "Communicate fast, solve harder,", 
-      "and discover whether your team", 
-      "has what it takes to escape", 
-      "before time runs out.", 
-    ], 
-    // Big image: Moody, atmospheric wide view of a mysterious dimly lit escape room corridor with dramatic lighting and clues
-    bigImage: "https://images.unsplash.com/photo-1614849963640-9cc74b2a826f?auto=format&fit=crop&w=2400&h=1600&q=85", 
-    // Small image: Sharp macro close-up of an antique combination padlock with keys, dramatic shadows and metallic texture
-    smallImage: "https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&w=1000&h=1000&q=80", 
-  },
+  // { 
+  //   titleLines: ["ESCAPE", "ROOMS"], 
+  //   textLines: [ 
+  //     "Three immersive themed rooms.", 
+  //     "One ticking 60-minute clock.", 
+  //     "Communicate fast, solve harder,", 
+  //     "and discover whether your team", 
+  //     "has what it takes to escape", 
+  //     "before time runs out.", 
+  //   ], 
+  //   // Big image: Moody, atmospheric wide view of a mysterious dimly lit escape room corridor with dramatic lighting and clues
+  //   bigImage: "https://images.unsplash.com/photo-1614849963640-9cc74b2a826f?auto=format&fit=crop&w=2400&h=1600&q=85", 
+  //   // Small image: Sharp macro close-up of an antique combination padlock with keys, dramatic shadows and metallic texture
+  //   smallImage: "https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&w=1000&h=1000&q=80", 
+  // },
   { 
     titleLines: ["REMOTE", "CONTROL"], 
     textLines: [ 

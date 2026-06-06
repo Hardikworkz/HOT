@@ -11,9 +11,8 @@ function AmenitiesSection() {
     let activityRoute = 'escape-room'; // default
     
     if (amenity?.titleLines) {
-      const title = amenity.titleLines.join(' ').toLowerCase();
-      if (title.includes('escape')) activityRoute = 'escape-room';
-      else if (title.includes('axe')) activityRoute = 'axe-throwing';
+      const title = amenity.titleLines.join(' ').toLowerCase(); 
+       if (title.includes('axe')) activityRoute = 'axe-throwing';
       else if (title.includes('vr') || title.includes('virtual')) activityRoute = 'virtual-reality';
       else if (title.includes('rc') || title.includes('truck') || title.includes('remote') || title.includes('control')) activityRoute = 'rc-truck-controller';
     }

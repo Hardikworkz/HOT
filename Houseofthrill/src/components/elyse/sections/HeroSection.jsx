@@ -91,7 +91,7 @@ useEffect(() => {
               <div className="hero-text-group">
                 <div className="hero-kicker" data-hero="title-min">
                   {HERO_WORDS.map((word, index) => (
-                    <span aria-hidden="true" className="hero-word" data-word="true" key={`${word}-${index}`}>
+                    <span aria-hidden="true" className="hero-word text-red-500" data-word="true" key={`${word}-${index}`}>
                       {word}{index < HERO_WORDS.length - 1 ? " " : ""}
                     </span>
                   ))}

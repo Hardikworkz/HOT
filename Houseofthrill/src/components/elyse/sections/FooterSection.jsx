@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -12,12 +12,25 @@ gsap.registerPlugin(ScrollTrigger);
 
 function FooterSection() {
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
+  const [isSigningOut, setIsSigningOut] = useState(false);
 
   const isLoggedIn = Boolean(user || isAuthenticated);
 
-  const handleFooterAuthClick = () => {
-    navigate(isLoggedIn ? "/welcome" : "/login");
+  const handleFooterAuthClick = async () => {
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+
+    if (isSigningOut) {
+      return;
+    }
+
+    setIsSigningOut(true);
+    const result = await logout();
+    setIsSigningOut(false);
+    navigate(result?.success ? "/login" : "/welcome");
   };
 
   useEffect(() => {
@@ -72,23 +85,53 @@ function FooterSection() {
             <LineReveal className="footer-label" lines={["(LOCATION)"]} />
           </div>
           <div className="footer-content-container">
-            <LineReveal href='https://www.google.com/maps/place/House+Of+Thrill/@23.2144,77.4291727,17z/data=!3m1!4b1!4m6!3m5!1s0x397c436cf54f7441:0xf4fcd58b7017fd33!8m2!3d23.2144!4d77.4317476!16s%2Fg%2F11yty38w_y?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D' as="p" className="location-text" lines={["E4/105, Near Vande Mataram Square, ", "Arera Colony, Bhopal, M.P."]} />
+            <LineReveal
+              as="a"
+              href="https://www.google.com/maps/place/House+Of+Thrill/@23.2144,77.4291727,17z/data=!3m1!4b1!4m6!3m5!1s0x397c436cf54f7441:0xf4fcd58b7017fd33!8m2!3d23.2144!4d77.4317476!16s%2Fg%2F11yty38w_y?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D"
+              className="location-text"
+              aria-label="Open House of Thrill location in Google Maps"
+              lines={["E4/105, Near Vande Mataram Square, ", "Arera Colony, Bhopal, M.P."]}
+            />
           </div>
         </div>
 
         {/* Column 3: Contact */}
         <div className="footer-col col-contact">
-          <div className="footer-label-container">
+          <div className="footer-label-container ">
             <LineReveal className="footer-label" lines={["(CONTACT)"]} />
           </div>
-          <div className="footer-content-container">
-            <LineReveal as="p" className="contact-highlight" lines={["houseofthrillindia@gmail.com"]} />
-            <LineReveal as="p" className="contact-highlight" lines={["+91 7987097199"]} />
+          <div className="footer-content-container ">
+            <LineReveal
+              as="a"
+              href="mailto:houseofthrillindia@gmail.com"
+              className="contact-highlight"
+              aria-label="Email House of Thrill"
+              lines={["houseofthrillindia@gmail.com"]}
+            />
+            <LineReveal
+              as="a"
+              href="tel:+917987097199"
+              className="contact-highlight"
+              aria-label="Call House of Thrill"
+              lines={["+91 7987097199"]}
+            />
             <div className="social flex gap-4 text-[clamp(1.4rem,1vw,1.1rem)]">
-              <a href="https://www.instagram.com/houseofthrill_/" target="_blank" rel="noopener noreferrer" className="footer-social-link">
+              <a
+                href="https://www.instagram.com/houseofthrill_/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social-link"
+                aria-label="Visit House of Thrill on Instagram"
+              >
                 <BsInstagram />
               </a>
-              <a href="https://wa.me/917987097199" target="_blank" rel="noopener noreferrer" className="footer-social-link">
+              <a
+                href="https://wa.me/917987097199"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social-link"
+                aria-label="Open House of Thrill WhatsApp chat"
+              >
                 <BsWhatsapp />
               </a>
             </div>
@@ -103,7 +146,7 @@ function FooterSection() {
         </div>
 
         <div className="footer-bottom-content">
-          <div className="bottom-left">
+          <div className="bottom-left text-yellow-500" >
             &copy;HOUSE OF THRILL @ 2026 All rights reserved.
           </div>
           <div className="bottom-right-group">
@@ -111,10 +154,12 @@ function FooterSection() {
               type="button"
               onClick={handleFooterAuthClick}
               className="cookie-link"
+              disabled={isSigningOut}
+              aria-label={isLoggedIn ? "Sign out of your account" : "Open sign in page"}
             >
-              {isLoggedIn ? "Logout" : "Sign In"}
+              {isLoggedIn ? (isSigningOut ? "Signing Out..." : "Sign Out") : "Sign In"}
             </button>
-            <a href="mailto:workzhardik@gmail.com" target="_blank" rel="noopener noreferrer" className="bottom-right">
+            <a href="mailto:workzhardik@gmail.com" className="bottom-right">
               Made by ✳ HARDIK LALWANI
             </a>
           </div>
