@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import supabase from '../lib/supabase';
 import {
   clearStoredAuthSnapshot,
@@ -17,7 +17,13 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => storedAuthSnapshot.user);
   const [session, setSession] = useState(null);
   const [role, setRole] = useState(() => storedAuthSnapshot.role || null);
-  const [loading, setLoading] = useState(() => !storedAuthSnapshot.user && !storedAuthSnapshot.role);
+  // loading = true only during the initial session + role resolution on mount.
+  // Once bootstrap finishes, loading is permanently false.
+  const [loading, setLoading] = useState(true);
+
+  // Track whether bootstrap has finished so onAuthStateChange doesn't
+  // double-fire the role fetch and cause a stuck loading state.
+  const bootstrapDone = useRef(false);
 
   const clearAuthState = useCallback(() => {
     clearStoredAuthSnapshot();
@@ -27,7 +33,7 @@ export function AuthProvider({ children }) {
     setLoading(false);
   }, []);
 
-  const syncRole = async (nextUser) => {
+  const syncRole = useCallback(async (nextUser) => {
     if (!nextUser?.id) {
       setRole(null);
       clearStoredAuthSnapshot();
@@ -39,7 +45,7 @@ export function AuthProvider({ children }) {
     setRole(resolvedRole);
     setStoredAuthSnapshot(nextUser, resolvedRole);
     return resolvedRole;
-  };
+  }, []);
 
   const logout = useCallback(async () => {
     clearAuthState();
@@ -63,6 +69,7 @@ export function AuthProvider({ children }) {
 
         const nextSession = recoveredSession || existingSession;
         setSession(nextSession);
+
         if (nextSession?.user) {
           setUser(nextSession.user);
           await syncRole(nextSession.user);
@@ -73,11 +80,12 @@ export function AuthProvider({ children }) {
         }
       } catch (error) {
         console.error('Error checking session:', error);
-        if (active) {
-          clearAuthState();
-        }
+        if (active) clearAuthState();
       } finally {
-        if (active) setLoading(false);
+        if (active) {
+          bootstrapDone.current = true;
+          setLoading(false);
+        }
       }
     };
 
@@ -93,10 +101,14 @@ export function AuthProvider({ children }) {
           return;
         }
 
+        // Skip events that fire before/during bootstrap — bootstrap handles them.
+        // Only respond to genuine post-login events (e.g., OAuth callback).
+        if (!bootstrapDone.current) return;
+
         setSession(nextSession);
         setUser(nextSession?.user || null);
+        // Sync role silently — no loading flash, role updates in background.
         await syncRole(nextSession?.user || null);
-        setLoading(false);
       }
     );
 
@@ -104,7 +116,7 @@ export function AuthProvider({ children }) {
       active = false;
       subscription?.unsubscribe();
     };
-  }, [clearAuthState]);
+  }, [clearAuthState, syncRole]);
 
   const value = {
     user,

@@ -76,6 +76,8 @@ exports.getSlots = async (req, res) => {
 exports.createBooking = async (req, res) => {
   try {
     const { activityId, date, timeSlot, userDetails, groupSize, packageType } = req.body;
+    const userId = req.user ? (req.user.id || req.user.sub) : null; // Get from authenticated user
+    
     if (!activityId || !date || !timeSlot || !userDetails) {
       return errorResponse(res, 400, "activityId, date, timeSlot, userDetails are required");
     }
@@ -138,7 +140,8 @@ exports.createBooking = async (req, res) => {
       date: normalizedDate,
       timeSlot,
       userDetails,
-      totalPrice
+      totalPrice,
+      userId // Pass authenticated user ID
     });
 
     return res.status(201).json(booking);
@@ -171,7 +174,13 @@ exports.createBookingWithActivity = async (req, res) => {
 // 🔹 GET ALL BOOKINGS
 exports.getBookings = async (req, res) => {
   try {
-    const bookings = await Booking.findAllWithActivity();
+    const userId = req.user ? (req.user.id || req.user.sub) : null;
+
+    if (!userId) {
+      return res.status(401).json({ error: 'User not authenticated' });
+    }
+
+    const bookings = await Booking.findByUserId(userId);
     return res.json(bookings);
   } catch (err) {
     return res.status(500).json({ error: err.message });

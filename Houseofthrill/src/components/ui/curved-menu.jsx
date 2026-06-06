@@ -116,9 +116,11 @@ const CurvedMenu = ({ items, onOpenProject, onVisit }) => {
           >
             Book a Visit
           </button>
-          <button className="w-12 h-12 border-2 border-[#25D366] rounded-full flex items-center justify-center text-[#25D366] hover:bg-[#25D366]/10 transition-colors shrink-0">
+          <a
+          href="https://wa.me/917987097199"
+          className="w-12 h-12  rounded-full flex items-center justify-center text-[#25D366] hover:bg-[#25D366]/10 transition-colors shrink-0">
             <BsWhatsapp size={20} />
-          </button>
+          </a>
         </motion.div>
       </div>
       <Curve />

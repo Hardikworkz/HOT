@@ -83,6 +83,7 @@ const initSchema = async () => {
     CREATE TABLE IF NOT EXISTS bookings (
       id SERIAL PRIMARY KEY,
       activity_id INTEGER NOT NULL REFERENCES activities(id) ON DELETE CASCADE,
+      user_id UUID,
       booking_date DATE NOT NULL,
       time_slot VARCHAR(5) NOT NULL,
       user_name VARCHAR(120) NOT NULL,
@@ -96,18 +97,7 @@ const initSchema = async () => {
 
   await pool.query(`
     ALTER TABLE bookings
-    DROP CONSTRAINT IF EXISTS bookings_activity_id_booking_date_time_slot_key;
-  `);
-
-  await pool.query(`
-    ALTER TABLE bookings
-    ADD COLUMN IF NOT EXISTS status VARCHAR(20) NOT NULL DEFAULT 'pending'
-  `);
-
-  await pool.query(`
-    UPDATE bookings
-    SET status = 'pending'
-    WHERE status IS NULL OR status = ''
+    ADD COLUMN IF NOT EXISTS user_id UUID
   `);
 };
 

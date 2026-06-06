@@ -10,14 +10,19 @@ function LoginSuccessPage() {
   const { user, isAuthenticated, isAdmin, loading, logout } = useAuth();
   const [loggingOut, setLoggingOut] = useState(false);
   const [logoutError, setLogoutError] = useState("");
-  const destination = getPostLoginDestination() || (isAdmin ? "/admin/dashboard" : "/");
+  const storedDestination = getPostLoginDestination();
+  const destination = (storedDestination && !(!isAdmin && storedDestination.startsWith("/admin")))
+    ? storedDestination
+    : isAdmin
+    ? "/admin/dashboard"
+    : "/";
+
+  if (!user && !isAuthenticated && !loading) {
+    return <Navigate to="/login" replace />;
+  }
 
   if (!user && loading) {
     return <div className="auth-spinner">Loading...</div>;
-  }
-
-  if (!user && !isAuthenticated) {
-    return <Navigate to="/login" replace />;
   }
 
   const handleContinue = () => {

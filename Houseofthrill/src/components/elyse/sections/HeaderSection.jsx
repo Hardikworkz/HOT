@@ -9,7 +9,7 @@ import { LOGO_URL } from "../data.js";
 import "./header-section.css";
 
 function HeaderSection({ headerRef, menuOpen, onMenuToggle, onVisit }) {
-  const desktopLinks = ["About", "Rooms", "Activities", "Reviews" ];
+  const desktopLinks = ["About", "Activities", "Reviews", "Mini H.O.T." ];
 
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -31,9 +31,9 @@ function HeaderSection({ headerRef, menuOpen, onMenuToggle, onVisit }) {
     } else {
       const sectionMap = {
         "About": "about-section",
-        "Rooms": "rooms-section",
-        "Activities": "activities-section",
+        "Activities": "rooms-section",
         "Reviews": "reviews-section",
+        "Mini H.O.T.": "hero-section",  
       };
       const sectionId = sectionMap[linkName];
       if (sectionId) {
@@ -53,11 +53,11 @@ function HeaderSection({ headerRef, menuOpen, onMenuToggle, onVisit }) {
   };
 
   const handleVisitClick = () => {
-    if (typeof onVisit === 'function') {
-      onVisit();
-      return;
+    if (isAuthenticated) {
+      navigate("/book");
+    } else {
+      navigate("/login");
     }
-    navigate("/book");
   };
 
   useEffect(() => {
@@ -98,7 +98,7 @@ function HeaderSection({ headerRef, menuOpen, onMenuToggle, onVisit }) {
            <div className="flex items-center gap-6">
               <a
                 aria-label="THRILL logo"
-                className="inline-flex h-[1.625rem] w-[5.875rem] items-center min-w-[90px] cursor-pointer border-r border-white pr-6"
+                className="inline-flex h-[1.625rem] w-[5.875rem] items-center min-w-[90px] cursor-pointer pr-6"
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
@@ -109,7 +109,7 @@ function HeaderSection({ headerRef, menuOpen, onMenuToggle, onVisit }) {
               </a>
           </div>
           {/* Desktop Middle Links */}
-          <ul className="hidden md:flex list-none items-center gap-[1.5rem] lg:gap-[2.2rem] p-0 absolute left-1/2 -translate-x-1/2 w-max max-w-[60vw] justify-center">
+          <ul className="hidden md:flex list-none items-center gap-[1.5rem] lg:gap-[2.2rem] p-0 absolute left-1/2 -translate-x-1/2 w-max max-w-[60vw] justify-center text-red-500">
             {desktopLinks.map((link) => (
               <li key={link}>
                 <button

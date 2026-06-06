@@ -36,13 +36,7 @@ export function AdminRoute({ children }) {
   }
 
   if (!isAdmin) {
-    return (
-      <div style={{ padding: '40px', textAlign: 'center' }}>
-        <h2>Access Denied</h2>
-        <p>You need admin privileges to access this page.</p>
-        <p>Current role: {role || 'user'}</p>
-      </div>
-    );
+    return <Navigate to="/access-restricted" replace />;
   }
 
   return children;

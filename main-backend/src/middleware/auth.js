@@ -20,6 +20,9 @@ exports.requireAuth = async (req, res, next) => {
     }
 
     req.user = data.user;
+    req.accessToken = token;
+    // Ensure user ID is accessible - Supabase returns 'id', some SDKs use 'sub'
+    req.user.id = data.user.id || data.user.sub;
     next();
   } catch (error) {
     return res.status(500).json({ error: 'Authentication failed: ' + error.message });
@@ -36,10 +39,11 @@ exports.requireAdmin = async (req, res, next) => {
       return res.status(401).json({ error: 'User not authenticated' });
     }
 
+    const userId = req.user.id || req.user.sub;
     const { data: profile, error } = await supabaseAdmin
       .from('user_roles')
       .select('role')
-      .eq('user_id', req.user.id)
+      .eq('user_id', userId)
       .maybeSingle();
 
     if (error) {

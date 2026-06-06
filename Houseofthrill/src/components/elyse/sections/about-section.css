@@ -29,7 +29,7 @@
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0.03em;
-  color: #a4a09a;
+  color: red;
   text-transform: uppercase;
 }
 
@@ -43,6 +43,7 @@
   font-size: 50px;
   font-family: main;
   line-height: 1.1;
+  color: yellow !important;
 }
 
 .about-info {
@@ -92,7 +93,7 @@
 
 .one-venue{
   font-family: main !important;
-  color: #a4a09a !important ;
+  color: red !important ;
   text-transform: uppercase;
 }
 

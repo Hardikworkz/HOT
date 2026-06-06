@@ -90,7 +90,7 @@ export function setStoredAuthSnapshot(user, role) {
         app_metadata: user.app_metadata,
         user_metadata: user.user_metadata,
       } : null,
-      role: role || 'user',
+      role: role ?? null,
     };
 
     window.localStorage.setItem(AUTH_SNAPSHOT_KEY, JSON.stringify(snapshot));
@@ -130,7 +130,7 @@ export function setPendingLoginRole(role = 'user') {
 }
 
 export function getPendingLoginRole() {
-  return readStorage(PENDING_LOGIN_ROLE_KEY) || 'user';
+  return readStorage(PENDING_LOGIN_ROLE_KEY) || null;
 }
 
 export function clearPendingLoginRole() {
@@ -232,25 +232,6 @@ export async function getCurrentUser() {
   }
 }
 
-async function getProfileRole(userId) {
-  const { data, error } = await supabase
-    .from('user_roles')
-    .select('user_id, email, role')
-    .eq('user_id', userId)
-    .maybeSingle();
-      
-  
- if (error) {
-    return { profile: null, role: 'user', error };
-  }
-
-  return {
-    profile: data || null,
-    role: data?.role || 'user',
-    error: null,
-  };
-}
-
 async function getBackendRole() {
   const {
     data: { session },
@@ -301,12 +282,17 @@ export async function getUserRole(userOrId) {
     };
   }
 
-  const backendRole = await getBackendRole();
-  if (!backendRole.error && backendRole.role) {
-    return backendRole;
+  const backendResult = await getBackendRole();
+
+  if (backendResult.error) {
+    console.error('Backend role lookup failed:', backendResult.error);
   }
 
-  return getProfileRole(userId);
+  return {
+    profile: backendResult.profile || null,
+    role: backendResult.role || 'user',
+    error: backendResult.error || null,
+  };
 }
 
 export async function isUserAuthorizedAdmin(userOrId) {

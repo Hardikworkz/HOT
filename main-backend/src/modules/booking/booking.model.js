@@ -53,12 +53,12 @@ const findOneBySlot = async (activityId, date, timeSlot) => {
   return mapRowToBooking(result.rows[0]);
 };
 
-const create = async ({ activityId, date, timeSlot, userDetails, totalPrice }) => {
+const create = async ({ activityId, date, timeSlot, userDetails, totalPrice, userId = null }) => {
   const result = await pool.query(
-    `INSERT INTO bookings (activity_id, booking_date, time_slot, user_name, user_phone, total_price)
-     VALUES ($1, $2, $3, $4, $5, $6)
+    `INSERT INTO bookings (activity_id, user_id, booking_date, time_slot, user_name, user_phone, total_price)
+     VALUES ($1, $2, $3, $4, $5, $6, $7)
      RETURNING *`,
-    [activityId, date, timeSlot, userDetails.name, userDetails.phone, totalPrice]
+    [activityId, userId, date, timeSlot, userDetails.name, userDetails.phone, totalPrice]
   );
   return mapRowToBooking(result.rows[0]);
 };
@@ -84,9 +84,32 @@ const findAllWithActivity = async () => {
   }));
 };
 
+const findByUserId = async (userId) => {
+  const result = await pool.query(`
+    SELECT
+      b.*,
+      a.name AS activity_name,
+      a.type AS activity_type
+    FROM bookings b
+    JOIN activities a ON a.id = b.activity_id
+    WHERE b.user_id = $1
+    ORDER BY b.created_at DESC
+  `, [userId]);
+
+  return result.rows.map((row) => ({
+    ...mapRowToBooking(row),
+    activity: {
+      id: row.activity_id,
+      name: row.activity_name,
+      type: row.activity_type
+    }
+  }));
+};
+
 module.exports = {
   findByActivityAndDate,
   findOneBySlot,
   create,
-  findAllWithActivity
+  findAllWithActivity,
+  findByUserId
 };

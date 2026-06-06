@@ -78,6 +78,7 @@
   position: sticky;
   top: 0;
   z-index: 2;
+  
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -120,8 +121,7 @@
   letter-spacing: -0.04em;
   line-height: 0.8;
   will-change: transform, opacity;
-
-   font-size: clamp(6.5rem, 23vw, 22rem);
+    font-size: clamp(6.5rem, 23vw, 22rem);
 
   position: relative;
   bottom: 0;

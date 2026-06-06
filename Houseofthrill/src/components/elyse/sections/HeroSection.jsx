@@ -68,16 +68,16 @@ useEffect(() => {
             <div className="hero-heading">
             <div className="hero-house-wrap">
               <div
-                className="hero hero-house"
+                className="hero hero-house text-white"
                 data-hero="house"
               >
                 HOUSE OF
               </div>
             </div>        
-    <div className="hero-title-main" data-hero="title">
+    <div className="hero-title-main  " data-hero="title">
               
               {heroChars.map((char, index) => (
-                <span className="hero-char-mask" key={`${char}-${index}`}>
+                <span className="hero-char-mask text-white" key={`${char}-${index}`}>
                   <span aria-hidden="true" className="hero-char" data-char="true">
                     {char}
                   </span>

@@ -3,6 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const { connectDB } = require('./config/db');
+const authRoutes = require('./routes/authRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const activityRoutes = require('./routes/activityRoutes');
@@ -21,6 +22,7 @@ app.get('/health', (_req, res) => {
   res.json({ ok: true, service: 'house-of-thrill-backend' });
 });
 
+app.use('/api/auth', authRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/activities', activityRoutes);
