@@ -70,7 +70,7 @@
 }
 
 .contact-highlight {
-   font-size: clamp(1.25rem, 1vw, 22px);
+   
   font-style: italic;
   text-transform: uppercase;
   margin: 0 0 10px 0;

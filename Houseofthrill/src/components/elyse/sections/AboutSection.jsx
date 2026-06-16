@@ -27,7 +27,7 @@ function AboutSection({
   heading = (
     <>
       PURE THRILL <span className="h5 mob-h7">AXE-MEETS-ESCAPE</span>
-      <span> -BORN IN BHOPAL </span>
+      
     </>
   ),
   imageSrc = aboutImage,

@@ -200,7 +200,7 @@
   object-fit: cover;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 502px) {
   .amenities-wrap {
     grid-template-columns: 1fr;
     row-gap: 2.75rem;
@@ -258,7 +258,7 @@
   }
 }
 
-@media (max-width: 499px) {
+@media (max-width: 502px) {
   .amenities .anim-track {
     height: calc(var(--amenities-track-height, 390vh) - 30vh);
   }
@@ -345,7 +345,7 @@
   }
 }
 
-@media (max-width: 499px) {
+@media (max-width: 502px) {
   .amenities .page-padding {
     padding-right: 0.75rem;
     padding-left: 0.75rem;
@@ -398,15 +398,15 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 340px; /* Adjust scale based on your container design layout */
+  max-width: 340px;
   height: 54px;
 
   background-color: transparent;
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 100px; /* Perfect pill/capsule shape */
+  border-radius: 100px;
   
-  font-family: sans-serif; /* Inherits your clean sans-serif/robo font */
+  font-family: sans-serif;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -418,29 +418,27 @@
 }
 
 .amenities-action-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+  background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.9);
 }
 
-/* Responsive adjustment for clean mobile centering or layout matching */
 @media (max-width: 768px) {
   .amenities-action-btn {
-    max-width: 100%; /* Spans evenly across smaller viewport columns */
+    max-width: 100%;
     margin-top: 25px;
     height: 48px;
     font-size: 12px;
   }
 }
 
-/* --- Static button placed outside animated slides --- */
 .amenities-action-btn--static {
-  grid-column: 2; /* Sits in the second column of the text-column grid */
+  grid-column: 2;
   align-self: start;
   position: relative;
   z-index: 5;
 }
 
-@media (max-width: 499px) {
+@media (max-width: 502px) {
   .amenities-action-btn--static {
     grid-column: 1;
   }

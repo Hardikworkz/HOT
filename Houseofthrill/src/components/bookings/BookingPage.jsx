@@ -71,6 +71,69 @@ const ACTIVITY_TIER_NAME_MAP = {
   'mini-house-of-thrill': 'Mini House of Thrill',
 };
 
+const FALLBACK_ACTIVITIES = [
+  {
+    id: 1,
+    name: 'Escape Rooms',
+    type: 'group',
+    slotConfig: { duration: 60, buffer: 30, openTime: '11:00', closeTime: '22:00' },
+    pricing: {
+      2: { weekday: 1500, weekend: 1700 },
+      3: { weekday: 2100, weekend: 2300 },
+      4: { weekday: 2800, weekend: 3000 },
+      5: { weekday: 3500, weekend: 3700 },
+      6: { weekday: 3900, weekend: 4100 },
+      7: { weekday: 4200, weekend: 4400 },
+      8: { weekday: 4800, weekend: 5000 },
+    },
+  },
+  {
+    id: 2,
+    name: 'VR Gaming',
+    type: 'package',
+    slotConfig: { duration: 30, buffer: 0, openTime: '11:00', closeTime: '22:00' },
+    pricing: {
+      '15_MINS_PLAY': { weekday: 200, weekend: 250 },
+      '30_MINS_PLAY': { weekday: 350, weekend: 400 },
+      'META_SHOT_2_OVERS': { weekday: 200, weekend: 200 },
+      'META_SHOT_5_OVERS': { weekday: 400, weekend: 400 },
+    },
+  },
+  {
+    id: 3,
+    name: 'Axe Throwing',
+    type: 'package',
+    slotConfig: { duration: 30, buffer: 0, openTime: '11:00', closeTime: '22:00' },
+    pricing: {
+      'TRIAL_PACKAGE': { weekday: 250, weekend: 300 },
+      '30_MIN_1_LANE': { weekday: 800, weekend: 1000 },
+      '60_MIN_1_LANE': { weekday: 1500, weekend: 1800 },
+    },
+  },
+  {
+    id: 4,
+    name: 'Remote Control Construction',
+    type: 'package',
+    slotConfig: { duration: 20, buffer: 0, openTime: '11:00', closeTime: '22:00' },
+    pricing: {
+      '1_RC_VEHICLE': { weekday: 200, weekend: 250 },
+      '1_PREMIUM_RC_VEHICLE': { weekday: 350, weekend: 400 },
+      'ENTIRE_SAND_PIT': { weekday: 1200, weekend: 1500 },
+    },
+  },
+  {
+    id: 5,
+    name: 'Mini House of Thrill',
+    type: 'package',
+    slotConfig: { duration: 30, buffer: 0, openTime: '11:00', closeTime: '20:00' },
+    pricing: {
+      '30_MINS_PLAY': { weekday: 200, weekend: 250 },
+      '60_MINS_PLAY': { weekday: 350, weekend: 400 },
+      '120_MINS_PLAY': { weekday: 600, weekend: 700 },
+    },
+  },
+];
+
 const GUEST_LIMITS_BY_TIER = {
   'escape-room': { min: 2, max: 8 },
   'axe-throwing': { min: 1, max: 4 },
@@ -309,10 +372,11 @@ export default function BookingPage() {
 
   const isEscapeRoom = selectedTier?.id === 'escape-room';
   const totalSteps = 4;
+  const resolvedActivities = activities.length ? activities : FALLBACK_ACTIVITIES;
 
   const activitiesWithFallback = useMemo(() => {
-    if (!activities?.length) return [];
-    return activities.map((a) => ({
+    if (!resolvedActivities?.length) return [];
+    return resolvedActivities.map((a) => ({
       id: a.id,
       title: a.name || 'Experience',
       description: a.description || 'A premium curated experience.',
@@ -322,7 +386,7 @@ export default function BookingPage() {
           : 0,
       type: a.type || 'package',
     }));
-  }, [activities]);
+  }, [resolvedActivities]);
 
   useEffect(() => {
     if (user?.email) {
@@ -366,9 +430,9 @@ export default function BookingPage() {
   };
 
   useEffect(() => {
-    if (!activities?.length) return;
+    if (!resolvedActivities?.length) return;
     if (selectedTier?.id) {
-      const matched = findMatchingActivityForTier(selectedTier.id, activities);
+      const matched = findMatchingActivityForTier(selectedTier.id, resolvedActivities);
       if (matched && matched.id !== selectedActivity?.id) {
         setSelectedActivity(matched);
         setSelectedSlot('');
@@ -376,9 +440,9 @@ export default function BookingPage() {
       return;
     }
     if (!selectedActivity) {
-      setSelectedActivity(activities[0]);
+      setSelectedActivity(resolvedActivities[0]);
     }
-  }, [activities, selectedTier, selectedActivity]);
+  }, [resolvedActivities, selectedTier, selectedActivity]);
 
   useEffect(() => {
     if (!selectedActivity?.id) return;
@@ -1073,87 +1137,98 @@ export default function BookingPage() {
             ) : (
               /* ── Non-escape-room: session size cards ── */
               <div className="w-full max-w-4xl mx-auto px-1 sm:px-2">
-                <div
-                  className="grid gap-3 sm:gap-4"
-                  style={{
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 240px), 1fr))',
-                  }}
-                >
-                  {selectedActivityOptions.map((option) => {
-                    const isSelected = selectedRoom?.id === option.id;
-                    return (
-                      <article
-                        key={option.id}
-                        className="rounded-[6px] cursor-pointer transition-all duration-300 hover:-translate-y-1 flex flex-col"
-                        style={{
-                          background: '#ece7e0',
-                          padding: 'clamp(14px, 2vw, 22px)',
-                          boxShadow: isSelected
-                            ? '0 0 0 2px #113f31, 0 16px 40px -20px rgba(17,63,49,0.55)'
-                            : '0 4px 20px -10px rgba(17,63,49,0.2)',
-                          minHeight: 'clamp(160px, 22vh, 220px)',
-                        }}
-                        onClick={() => setSelectedRoom(option)}
-                      >
-                        {/* Header row — thumbnail + selection dot */}
-                        <div className="flex items-start justify-between mb-2">
-                          <div
-                            className="overflow-hidden rounded-md flex-shrink-0"
-                            style={{ width: '32px', height: '32px' }}
-                          >
-                            <img
-                              src={currentTierImage}
-                              alt={currentTierAlt}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                          {isSelected && (
-                            <span
-                              className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0"
-                              style={{ background: '#113f31' }}
+                {selectedActivityOptions.length ? (
+                  <div
+                    className="grid gap-3 sm:gap-4"
+                    style={{
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 240px), 1fr))',
+                    }}
+                  >
+                    {selectedActivityOptions.map((option) => {
+                      const isSelected = selectedRoom?.id === option.id;
+                      return (
+                        <article
+                          key={option.id}
+                          className="rounded-[6px] cursor-pointer transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                          style={{
+                            background: '#ece7e0',
+                            padding: 'clamp(14px, 2vw, 22px)',
+                            boxShadow: isSelected
+                              ? '0 0 0 2px #113f31, 0 16px 40px -20px rgba(17,63,49,0.55)'
+                              : '0 4px 20px -10px rgba(17,63,49,0.2)',
+                            minHeight: 'clamp(160px, 22vh, 220px)',
+                          }}
+                          onClick={() => setSelectedRoom(option)}
+                        >
+                          {/* Header row — thumbnail + selection dot */}
+                          <div className="flex items-start justify-between mb-2">
+                            <div
+                              className="overflow-hidden rounded-md flex-shrink-0"
+                              style={{ width: '32px', height: '32px' }}
                             >
-                              <svg width="7" height="5" viewBox="0 0 10 8" fill="none">
-                                <path d="M1 4L3.5 6.5L9 1" stroke="#f4f0ea" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                              </svg>
-                            </span>
-                          )}
-                        </div>
+                              <img
+                                src={currentTierImage}
+                                alt={currentTierAlt}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            {isSelected && (
+                              <span
+                                className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0"
+                                style={{ background: '#113f31' }}
+                              >
+                                <svg width="7" height="5" viewBox="0 0 10 8" fill="none">
+                                  <path d="M1 4L3.5 6.5L9 1" stroke="#f4f0ea" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                              </span>
+                            )}
+                          </div>
 
-                        {/* Title */}
-                        <h3
-                          className="font-serif font-normal text-[#184E4D] leading-snug mb-2"
-                          style={{ fontSize: 'clamp(15px, 1.6vw, 19px)' }}
-                        >
-                          {option.label}
-                        </h3>
+                          {/* Title */}
+                          <h3
+                            className="font-serif font-normal text-[#184E4D] leading-snug mb-2"
+                            style={{ fontSize: 'clamp(15px, 1.6vw, 19px)' }}
+                          >
+                            {option.label}
+                          </h3>
 
-                        {/* Description — per-package copy */}
-                        <p
-                          className="leading-relaxed flex-1"
-                          style={{
-                            fontSize: 'clamp(11px, 1vw, 13px)',
-                            color: '#0F2020',
-                            fontFamily: 'Helvetica, Arial, sans-serif',
-                            lineHeight: 1.6,
-                          }}
-                        >
-                          {option.description}
-                        </p>
+                          {/* Description — per-package copy */}
+                          <p
+                            className="leading-relaxed flex-1"
+                            style={{
+                              fontSize: 'clamp(11px, 1vw, 13px)',
+                              color: '#0F2020',
+                              fontFamily: 'Helvetica, Arial, sans-serif',
+                              lineHeight: 1.6,
+                            }}
+                          >
+                            {option.description}
+                          </p>
 
-                        {/* Price — pinned to bottom */}
-                        <p
-                          className="font-sans-serif text-[#184E4D] mt-3 pt-2"
-                          style={{
-
-                            fontSize: 'clamp(15px, 1.6vw, 2px)',
-                          }}
-                        >
-                          {formatCurrency(option.price)}
-                        </p>
-                      </article>
-                    );
-                  })}
-                </div>
+                          {/* Price — pinned to bottom */}
+                          <p
+                            className="font-sans-serif text-[#184E4D] mt-3 pt-2"
+                            style={{ fontSize: 'clamp(15px, 1.6vw, 20px)' }}
+                          >
+                            {formatCurrency(option.price)}
+                          </p>
+                        </article>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div
+                    className="rounded-[8px] text-center"
+                    style={{
+                      background: 'rgba(17,63,49,0.05)',
+                      border: '1px solid rgba(17,63,49,0.12)',
+                      padding: '24px',
+                      color: 'rgba(17,63,49,0.72)',
+                    }}
+                  >
+                    Session sizes are loading. If they do not appear, go back and reselect the activity.
+                  </div>
+                )}
               </div>
             )}
 

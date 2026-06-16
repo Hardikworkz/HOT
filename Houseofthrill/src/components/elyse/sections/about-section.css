@@ -15,7 +15,6 @@
 .about {
   padding: 50px !important;
   margin-top: 100px;
-  
 }
 
 .about .container {
@@ -40,7 +39,7 @@
 }
 
 .subheading{
-  font-size: 50px;
+  font-size: clamp(1.8rem, 5.5rem, 5.2rem) !important;
   font-family: main;
   line-height: 1.1;
   color: yellow !important;
@@ -49,9 +48,9 @@
 .about-info {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
-  gap: clamp(3rem, 8vw, 8rem) !important;
+  gap: clamp(3rem, 4vw, 8rem) !important;
   align-items: stretch !important;
-  min-height: calc(100vh - 50px) !important;
+ 
 }
 
 .about-left {
@@ -69,8 +68,8 @@
 
 .about-img {
   position: relative;
-  width: 100% !important;
-  height: 100% !important;
+  width: 419px !important;
+  height: 645px !important;
   max-width: none !important;
   aspect-ratio: auto !important;
   overflow: hidden;
@@ -107,7 +106,7 @@
 }
 
 /* Mobile Utilities */
-@media (max-width: 1080px) {
+@media (max-width: 460px) {
   .about {
     padding: 25px !important;
     margin-block: 50px !important;
@@ -168,6 +167,30 @@
 
   .about-wrap {
     gap: 3.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  
+    .stats-row-1,
+  .stats-row-2,
+  .stats-row-3 {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    gap: 4rem !important;
+  }
+  .amenities-wrap {
+    /* At mobile, we switch to your vertical design, but LOCK it to a 390px base */
+    width: 390px;
+    grid-template-columns: 1fr;
+    row-gap: 2.75rem;
+    padding-top: 5.25rem;
+    
+    /* Scale it down if the phone is even narrower than 390px */
+    transform: scale(min(1, calc(100vw / 390)));
   }
 }
 
@@ -244,6 +267,7 @@
   line-height: 0.9 !important;
   letter-spacing: -0.02em !important;
   color: #f5efe6 !important;
+  text-wrap: nowrap !important;
 }
 
 .stats .b1 {
@@ -268,7 +292,7 @@
   color: #a4a09a !important;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 460px) {
   .stats {
     gap: 5rem !important;
     margin-top: 5rem !important;
@@ -303,3 +327,13 @@
     max-width: 100% !important;
   }
 }
+
+@media (min-width: 461px) and (max-width: 1200px) {
+  .about {
+    width: 1200px !important;
+    transform: scale(calc(100vw / 1200px)) !important;
+    transform-origin: top left !important;
+    margin-bottom: calc((100vw / 1200px - 1) * 1200px) !important;
+  }
+}
+
