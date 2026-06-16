@@ -101,7 +101,7 @@ function FaqSection({
                     style={{ height: 0 }}
                   >
                     <div className="faq-panel-copy max-w-[35rem] pt-1 text-white">
-                      <p className="m-0 text-[clamp(0.98rem,1.05vw,1.05rem)] leading-[1.55] [font-family:var(--font-body)] font-[450]">
+                      <p className="m-0 text-[clamp(1.08rem,1.18vw,1.2rem)] leading-[1.6] [font-family:var(--font-body)] font-[450]">
                         {item.answer}
                       </p>
                     </div>

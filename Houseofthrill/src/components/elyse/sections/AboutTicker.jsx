@@ -1,36 +1,52 @@
 import "./about-ticker.css";
+import miniVideoOne from "../../../assets/mini_1.mp4";
+import miniVideoTwo from "../../../assets/mini_2.mp4";
+import miniVideoThree from "../../../assets/mini_3.mp4";
+import miniImageOne from "../../../assets/mini_11.jpg";
+import miniImageTwo from "../../../assets/mini_22.jpg";
+import miniImageThree from "../../../assets/mini_33.jpg";
 
 /**
- * Ticker image data — 4 items with alternating regular / small sizing.
- * Each item has src, srcSet, alt, and a `small` flag for the is--small variant.
+ * Ticker media data — large frames are looping videos and small frames are stills.
  */
-const TICKER_IMAGES = [
+const TICKER_MEDIA = [
   {
-    src: "https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3b0202b2d312f5d46f_Frame%20147.avif",
-    srcSet:
-      "https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3b0202b2d312f5d46f_Frame%20147-p-500.avif 500w, https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3b0202b2d312f5d46f_Frame%20147-p-800.avif 800w, https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3b0202b2d312f5d46f_Frame%20147.avif 816w",
-    alt: "Bride in white gown holding red rose bouquet and groom in black tuxedo standing on stone path outdoors.",
+    type: "video",
+    src: miniVideoOne,
+    poster: miniImageOne,
+    alt: "Guests enjoying a premium experience at House of Thrill.",
     small: false,
   },
   {
-    src: "https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3b26ca1b096a6eda7c_Frame%2098.avif",
-    srcSet:
-      "https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3b26ca1b096a6eda7c_Frame%2098-p-500.avif 500w, https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3b26ca1b096a6eda7c_Frame%2098-p-800.avif 800w, https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3b26ca1b096a6eda7c_Frame%2098.avif 816w",
-    alt: "DJ wearing headphones stands behind a white DJ console with laptop and mixer outdoors at night.",
+    type: "image",
+    src: miniImageOne,
+    alt: "House of Thrill gallery still.",
     small: true,
   },
   {
-    src: "https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3bfd4346c3a790d01a_Frame%20143.avif",
-    srcSet:
-      "https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3bfd4346c3a790d01a_Frame%20143-p-500.avif 500w, https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3bfd4346c3a790d01a_Frame%20143-p-800.avif 800w, https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3bfd4346c3a790d01a_Frame%20143.avif 816w",
-    alt: "Bride and groom joyfully dancing together indoors near open doors with string lights and outdoor patio visible.",
+    type: "video",
+    src: miniVideoTwo,
+    poster: miniImageTwo,
+    alt: "Immersive activity highlight from House of Thrill.",
     small: false,
   },
   {
-    src: "https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3bd7bea7f2504f39de_Frame%20142.avif",
-    srcSet:
-      "https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3bd7bea7f2504f39de_Frame%20142-p-500.avif 500w, https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3bd7bea7f2504f39de_Frame%20142-p-800.avif 800w, https://cdn.prod.website-files.com/68d563f4fd5681015e6537de/692cce3bd7bea7f2504f39de_Frame%20142.avif 816w",
-    alt: "Bride in a white floral lace wedding dress wearing a white cowboy hat with 'BRIDE' written on it, dancing at a party with other people.",
+    type: "image",
+    src: miniImageTwo,
+    alt: "House of Thrill featured still.",
+    small: true,
+  },
+  {
+    type: "video",
+    src: miniVideoThree,
+    poster: miniImageThree,
+    alt: "House of Thrill video showcase.",
+    small: false,
+  },
+  {
+    type: "image",
+    src: miniImageThree,
+    alt: "House of Thrill atmosphere still.",
     small: true,
   },
 ];
@@ -42,20 +58,32 @@ const TICKER_IMAGES = [
 function TickerList() {
   return (
     <div className="about-ticker-list">
-      {TICKER_IMAGES.map((image, index) => (
+      {TICKER_MEDIA.map((item, index) => (
         <div className="about-ticker__item" key={index}>
           <div
-            className={`about-ticker__img-wrap${image.small ? " is--small" : ""}`}
+            className={`about-ticker__img-wrap${item.small ? " is--small" : ""}`}
           >
             <div className="about-ticker__img">
-              <img
-                src={image.src}
-                srcSet={image.srcSet}
-                sizes="(max-width: 816px) 100vw, 816px"
-                loading="eager"
-                alt={image.alt}
-                className="img-cover"
-              />
+              {item.type === "video" ? (
+                <video
+                  src={item.src}
+                  poster={item.poster}
+                  aria-label={item.alt}
+                  className="media-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                />
+              ) : (
+                <img
+                  src={item.src}
+                  loading="eager"
+                  alt={item.alt}
+                  className="media-cover"
+                />
+              )}
             </div>
           </div>
         </div>
